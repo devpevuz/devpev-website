@@ -1,22 +1,25 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Cutive_Mono, Cutive } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const cutiveMono = Cutive_Mono({
+  weight: "400",
   subsets: ["latin"],
+  variable: "--font-cutive-mono",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const cutive = Cutive({
+  weight: "400",
   subsets: ["latin"],
+  variable: "--font-cutive",
 });
 
 export const metadata: Metadata = {
   title: "DevPev",
   description: "O'zbekistondagi ochiq dasturchilar jamiyati",
-  };
+};
 
 export default function RootLayout({
   children,
@@ -24,14 +27,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Header />
-         <main className="">
-          {children}
-        </main>
+    <html lang="uz">
+      <body className={`${cutiveMono.variable} ${cutive.variable} antialiased`}>
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

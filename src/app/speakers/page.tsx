@@ -1,11 +1,10 @@
 export default function Speakers() {
   return (
-    <div className="min-h-screen bg-[#1f1f1f] text-white p-6">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
+    <div className="min-h-screen text-white px-4 sm:px-0">
+      <div className="max-w-[1063px] mx-auto">
         <div className="text-center mb-12 pt-8">
-          <h1 className="text-4xl font-bold mb-4">Become a Speaker</h1>
-          <p className="text-lg text-gray-300">
+          <h1 className="font-sans text-[48px] text-white mb-4">Become a Speaker</h1>
+          <p className="font-mono text-[18px] text-[#c9c9c9]">
             If you want to give a talk or share your ideas, please fill out this form
           </p>
         </div>
@@ -16,7 +15,7 @@ export default function Speakers() {
             href="https://forms.gle/dv5xdWwpSpYNN7Jc8"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block rounded-lg bg-indigo-600 hover:bg-indigo-700 px-6 py-3 font-medium text-base transition-colors"
+            className="inline-block border border-white/30 rounded-[10px] font-mono text-[18px] text-white hover:bg-white/10 px-6 py-3 transition-colors"
           >
             Open Form in New Tab
           </a>
@@ -29,6 +28,8 @@ export default function Speakers() {
             width="640"
             height="1702"
             className="border-0 rounded-lg max-w-full"
+            sandbox="allow-scripts allow-forms allow-same-origin allow-popups"
+            title="DevPev Speaker Application Form"
           >
             Loading…
           </iframe>
