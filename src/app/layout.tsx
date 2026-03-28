@@ -30,7 +30,7 @@ export default function RootLayout({
     <html lang="uz">
       <body className={`${cutiveMono.variable} ${cutive.variable} antialiased`}>
         <Navbar />
-        <main>{children}</main>
+        <main className="pt-[96px] sm:pt-[150px]">{children}</main>
         <Footer />
       </body>
     </html>
