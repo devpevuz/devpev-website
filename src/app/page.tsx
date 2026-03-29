@@ -211,7 +211,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="flex justify-center px-4 sm:px-0 pt-14 pb-16 sm:pt-20 sm:pb-20">
+      <section className="flex justify-center px-4 sm:px-0 pt-14 pb-6 sm:pt-20 sm:pb-8">
         <div className="w-full max-w-[1063px]">
           <div className="flex items-end justify-between gap-4 border-b border-white/10 pb-6">
             <div>

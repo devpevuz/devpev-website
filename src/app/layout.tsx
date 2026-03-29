@@ -3,6 +3,7 @@ import { Cutive_Mono, Cutive } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import DotBackground from "@/components/DotBackground";
 
 const cutiveMono = Cutive_Mono({
   weight: "400",
@@ -29,8 +30,9 @@ export default function RootLayout({
   return (
     <html lang="uz">
       <body className={`${cutiveMono.variable} ${cutive.variable} antialiased`}>
+        <DotBackground />
         <Navbar />
-        <main className="pt-[96px] sm:pt-[150px]">{children}</main>
+        <main className="pt-[90px] sm:pt-[130px]">{children}</main>
         <Footer />
       </body>
     </html>

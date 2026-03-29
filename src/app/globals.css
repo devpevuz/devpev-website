@@ -23,68 +23,68 @@ body {
   overflow-x: hidden;
 }
 
-body::before,
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.42;
-}
-
-body::before {
-  background-image:
-    radial-gradient(circle at center, rgba(255, 255, 255, 0.88) 0 0.7px, transparent 1px),
-    radial-gradient(circle at center, rgba(255, 255, 255, 0.45) 0 0.55px, transparent 0.9px);
-  background-size: 38px 38px, 62px 62px;
-  background-position: 0 0, 14px 18px;
-  animation: dot-drift-a 28s linear infinite;
-}
-
-body::after {
-  background-image:
-    radial-gradient(circle at center, rgba(255, 255, 255, 0.26) 0 0.6px, transparent 0.95px);
-  background-size: 52px 52px;
-  background-position: 10px 8px;
-  opacity: 0.16;
-  animation: dot-drift-b 36s linear infinite;
-}
-
-body > *:not(header) {
+body > *:not(header):not(canvas) {
   position: relative;
   z-index: 1;
 }
 
-@keyframes dot-drift-a {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(-18px, 14px, 0);
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
+/* Article prose styles */
+.prose-article p {
+  font-family: var(--font-cutive-mono), monospace;
+  font-size: 15px;
+  line-height: 2;
+  color: #c9c9c9;
+  margin-bottom: 1.5rem;
 }
 
-@keyframes dot-drift-b {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(14px, -16px, 0);
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
+.prose-article h2 {
+  font-family: var(--font-cutive), serif;
+  font-size: 28px;
+  color: #fff;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  body::before,
-  body::after {
-    animation: none;
-  }
+.prose-article code {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.prose-article pre {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+.prose-article pre code {
+  background: none;
+  padding: 0;
+  font-size: 13px;
+  color: #c9c9c9;
+}
+
+.prose-article ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.prose-article ul li::before {
+  content: "— ";
+  color: #666;
+}
+
+.prose-article ul li {
+  font-family: var(--font-cutive-mono), monospace;
+  font-size: 15px;
+  line-height: 2;
+  color: #c9c9c9;
 }
 
 /* @keyframes slide {

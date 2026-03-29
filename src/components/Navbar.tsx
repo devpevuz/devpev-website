@@ -34,8 +34,8 @@ export default function Navbar() {
 
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-transform duration-300 ${visible ? "translate-y-0" : "-translate-y-full"}`}>
-      <div className="px-2 sm:px-0 flex justify-center pt-2 sm:pt-[43px]">
-        <div className="w-full max-w-[1063px] backdrop-blur-[2px] bg-[rgba(255,255,255,0.07)] rounded-[20px] shadow-[0px_6px_8px_0px_rgba(0,0,0,0.15)] px-6 sm:px-8 py-5">
+      <div className="px-2 sm:px-0 flex justify-center pt-2 sm:pt-[20px]">
+        <div className="w-full max-w-[1063px] backdrop-blur-[2px] bg-[rgba(255,255,255,0.07)] rounded-[20px] shadow-[0px_6px_8px_0px_rgba(0,0,0,0.15)] px-6 sm:px-8 py-3.5">
           <div className="flex items-center justify-between min-h-[54px]">
           <Link href="/" className="shrink-0 hover:opacity-80 transition-opacity">
             <Image

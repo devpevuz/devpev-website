@@ -1,53 +1,10 @@
 import Link from "next/link";
 import StatsBar from "@/components/StatsBar";
-
-interface Article {
-  slug: string;
-  date: string;
-  author: string;
-  tags: string[];
-  title: string;
-}
-
-const articles: Article[] = [
-  {
-    slug: "article-title-long",
-    date: "12-nov, 2025",
-    author: "authorName, @github",
-    tags: ["#tag1", "#tag2", "#tag3"],
-    title: "The title of the article , lets say it is gonna be long",
-  },
-  {
-    slug: "article-title-even-longer",
-    date: "12-nov, 2025",
-    author: "authorName, @github",
-    tags: ["#tag1", "#tag2", "#tag3"],
-    title: "The title of the article , lets say it is gonna be long, maybe even longer",
-  },
-  {
-    slug: "article-title-long-2",
-    date: "12-nov, 2025",
-    author: "authorName, @github",
-    tags: ["#tag1", "#tag2", "#tag3"],
-    title: "The title of the article , lets say it is gonna be long",
-  },
-  {
-    slug: "article-title",
-    date: "12-nov, 2025",
-    author: "authorName, @github",
-    tags: ["#tag1", "#tag2", "#tag3"],
-    title: "The title of the article",
-  },
-  {
-    slug: "article-title-another-long",
-    date: "12-nov, 2025",
-    author: "authorName, @github",
-    tags: ["#tag1", "#tag2", "#tag3"],
-    title: "The title of the article , lets say it is gonna be long, another long",
-  },
-];
+import { getAllArticles } from "@/lib/articles";
 
 export default function BlogPage() {
+  const articles = getAllArticles();
+
   return (
     <div className="min-h-screen text-white">
       <section className="flex justify-center px-4 sm:px-0 pt-8">
@@ -64,17 +21,17 @@ export default function BlogPage() {
                 href={`/blog/${article.slug}`}
                 className="py-4 border-b border-white/10 hover:bg-white/5 px-2 -mx-2 rounded-lg transition-colors block"
               >
-                <p className="font-sans text-[24px] text-[#c9c9c9] mb-2">
+                <p className="font-sans text-[24px] text-white mb-1">
                   {article.title}
                 </p>
-                <div className="flex flex-wrap items-center gap-x-8 gap-y-1">
-                  <span className="font-mono text-[18px] text-white">
+                <div className="flex flex-wrap items-center gap-x-6 gap-y-0.5">
+                  <span className="font-mono text-[13px] text-[#888]">
                     {article.date}
                   </span>
-                  <span className="font-mono text-[18px] text-white">
-                    {article.author}
+                  <span className="font-mono text-[13px] text-[#888]">
+                    {article.author} · {article.github}
                   </span>
-                  <span className="font-mono text-[18px] text-white">
+                  <span className="font-mono text-[13px] text-[#666]">
                     {article.tags.join(" ")}
                   </span>
                 </div>

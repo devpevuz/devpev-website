@@ -32,7 +32,7 @@ export default function StatsBar({ stats = defaultStats }: StatsBarProps) {
   };
 
   return (
-    <div className="pt-2 pb-3 sm:pt-3 sm:pb-4">
+    <div className="pt-1 pb-2 sm:pt-1 sm:pb-3">
       <div className="flex flex-wrap gap-x-6 gap-y-2">
         <button
           type="button"

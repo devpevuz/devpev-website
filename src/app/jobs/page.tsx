@@ -2,76 +2,32 @@
 
 import { useState } from "react";
 import StatsBar from "@/components/StatsBar";
+import { positions, freelanceJobs, type Job } from "@/lib/jobs";
 
-interface Job {
-  id: string;
-  title: string;
-  company: string;
-  location: string;
-  type: string;
-  tags: string[];
-}
-
-const positions: Job[] = [
-  {
-    id: "frontend-techcorp",
-    title: "Frontend Developer",
-    company: "TechCorp",
-    location: "Tashkent, Uzbekistan",
-    type: "Full-time",
-    tags: ["React", "TypeScript", "Next.js"],
-  },
-  {
-    id: "backend-startupxyz",
-    title: "Backend Developer",
-    company: "StartupXYZ",
-    location: "Remote",
-    type: "Full-time",
-    tags: ["Node.js", "PostgreSQL"],
-  },
-  {
-    id: "devops-enterprise",
-    title: "DevOps Engineer",
-    company: "Enterprise Inc",
-    location: "Tashkent, Uzbekistan",
-    type: "Part-time",
-    tags: ["Docker", "Kubernetes", "AWS"],
-  },
-];
-
-const freelanceJobs: Job[] = [
-  {
-    id: "react-client",
-    title: "React Developer",
-    company: "Client Project",
-    location: "Remote",
-    type: "Freelance",
-    tags: ["React", "JavaScript"],
-  },
-  {
-    id: "ui-design-agency",
-    title: "UI Designer",
-    company: "Design Agency",
-    location: "Remote",
-    type: "Freelance",
-    tags: ["Figma", "Tailwind"],
-  },
-];
-
-function JobCard({ job }: { job: Job }) {
-  return (
-    <div className="py-5 border-b border-white/10 hover:bg-white/5 px-2 -mx-2 rounded-lg transition-colors cursor-pointer">
-      <p className="font-sans text-[24px] text-[#c9c9c9] mb-2">{job.title}</p>
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-1">
-        <span className="font-mono text-[18px] text-white">{job.company}</span>
-        <span className="font-mono text-[18px] text-white">{job.location}</span>
-        <span className="font-mono text-[18px] text-white">{job.type}</span>
-        <span className="font-mono text-[18px] text-[#999]">
-          {job.tags.map((t) => `#${t.toLowerCase()}`).join(" ")}
+function JobRow({ job }: { job: Job }) {
+  const row = (
+    <div className="py-4 border-b border-white/10 hover:bg-white/5 px-2 -mx-2 rounded-lg transition-colors">
+      <p className="font-sans text-[24px] text-white mb-1">{job.title}</p>
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-0.5">
+        <span className="font-mono text-[13px] text-[#888]">{job.company}</span>
+        <span className="font-mono text-[13px] text-[#888]">{job.location}</span>
+        <span className="font-mono text-[13px] text-[#888]">{job.type}</span>
+        <span className="font-mono text-[13px] text-[#666]">
+          {job.tags.map((t) => `#${t}`).join(" ")}
         </span>
       </div>
     </div>
   );
+
+  if (job.url) {
+    return (
+      <a href={job.url} target="_blank" rel="noopener noreferrer" className="block">
+        {row}
+      </a>
+    );
+  }
+
+  return <div className="cursor-default">{row}</div>;
 }
 
 export default function JobsPage() {
@@ -88,7 +44,6 @@ export default function JobsPage() {
               <h1 className="font-sans text-[48px] text-white">Jobs</h1>
             </div>
 
-            {/* Tab switcher */}
             <div className="flex items-center border border-white rounded-[10px] shrink-0 mt-8">
               <button
                 type="button"
@@ -115,12 +70,12 @@ export default function JobsPage() {
             </div>
           </div>
 
-          <div>
+          <div className="flex flex-col">
             {jobs.map((job) => (
-              <JobCard key={job.id} job={job} />
+              <JobRow key={job.id} job={job} />
             ))}
             {jobs.length === 0 && (
-              <p className="font-mono text-[18px] text-[#999] py-8 text-center">
+              <p className="font-mono text-[13px] text-[#888] py-8 text-center">
                 No {tab} positions available right now.
               </p>
             )}
