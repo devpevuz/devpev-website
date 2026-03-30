@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { Cutive_Mono, Cutive } from "next/font/google";
+import { IBM_Plex_Mono, Cutive } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DotBackground from "@/components/DotBackground";
+import RouteBodyClass from "@/components/RouteBodyClass";
 
-const cutiveMono = Cutive_Mono({
-  weight: "400",
+const ibmPlexMono = IBM_Plex_Mono({
+  weight: ["400", "500"],
   subsets: ["latin"],
-  variable: "--font-cutive-mono",
+  variable: "--font-ibm-plex-mono",
 });
 
 const cutive = Cutive({
@@ -29,7 +30,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="uz">
-      <body className={`${cutiveMono.variable} ${cutive.variable} antialiased`}>
+      <body className={`${ibmPlexMono.variable} ${cutive.variable} antialiased`}>
+        <RouteBodyClass />
         <DotBackground />
         <Navbar />
         <main className="pt-[90px] sm:pt-[130px]">{children}</main>

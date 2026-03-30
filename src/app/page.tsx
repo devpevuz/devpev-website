@@ -28,29 +28,29 @@ const homeStats: Stat[] = [
 const pathways: Pathway[] = [
   {
     title: "/vibe",
-    description: "A developer circle that feels approachable from the first meetup.",
+    description: "A local developer circle that feels easy to join.",
     points: ["Meet people building in Uzbekistan", "Stay close to local tech news"],
   },
   {
     title: "/learn",
-    description: "Talks, workshops, and shared notes focused on practical skills.",
-    points: ["Frontend, backend, AI, and career sessions", "Community write-ups and post-event recaps"],
+    description: "Talks and workshops focused on practical skills.",
+    points: ["Frontend, backend, AI, and career sessions", "Shared notes and post-event recaps"],
   },
   {
     title: "/build",
-    description: "Turn conversations into open-source projects and real contributions.",
+    description: "Turn conversations into open-source work.",
     points: ["Collaborate with contributors", "Ship demos, tools, and experiments together"],
   },
 ];
 
 const testimonials: Testimonial[] = [
   {
-    text: "DevPev feels like the rare community where the meetup conversation actually turns into collaboration the week after.",
+    text: "DevPev is one of the few communities where meetup conversations turn into real collaboration.",
     name: "Aziza",
     role: "Frontend engineer",
   },
   {
-    text: "The format is straightforward: useful talks, strong people in the room, and enough space to ask beginner questions without friction.",
+    text: "Useful talks, strong people in the room, and enough space to ask beginner questions.",
     name: "Bekzod",
     role: "CS student",
   },
@@ -148,14 +148,14 @@ export default function Home() {
                   <h3 className="font-sans text-[30px] text-white">
                     {pathway.title}
                   </h3>
-                  <p className="font-mono text-[14px] leading-6 text-[#c9c9c9]">
+                  <p className="font-mono text-[13px] leading-5 text-[#d2d2d2]">
                     {pathway.description}
                   </p>
                   <ul className="space-y-2">
                     {pathway.points.map((point) => (
                       <li
                         key={point}
-                        className="font-mono text-[12px] leading-6 text-white"
+                        className="font-mono text-[12px] leading-5 text-[#e4e4e4]"
                       >
                         {point}
                       </li>
@@ -185,15 +185,15 @@ export default function Home() {
                 <p className="font-mono text-[12px] uppercase tracking-[0.18em] text-[#c9c9c9]">
                   meetups
                 </p>
-                <p className="mt-4 font-sans text-[30px] leading-tight text-white">
-                  Sessions that help people understand what others are building now.
+                <p className="mt-4 font-sans text-[28px] leading-tight text-white">
+                  Sessions focused on what local builders are making now.
                 </p>
               </div>
               <div className="rounded-[24px] border border-white/10 bg-[rgba(255,255,255,0.04)] p-6">
                 <p className="font-mono text-[12px] uppercase tracking-[0.18em] text-[#c9c9c9]">
                   projects
                 </p>
-                <p className="mt-4 font-sans text-[30px] leading-tight text-white">
+                <p className="mt-4 font-sans text-[28px] leading-tight text-white">
                   Shared experiments, open-source repos, and side projects worth continuing.
                 </p>
               </div>
@@ -201,9 +201,8 @@ export default function Home() {
                 <p className="font-mono text-[12px] uppercase tracking-[0.18em] text-[#c9c9c9]">
                   community
                 </p>
-                <p className="mt-4 max-w-[620px] font-sans text-[30px] leading-tight text-white">
-                  A place to ask questions, find collaborators, share writing,
-                  and stay close to the people pushing local developer culture forward.
+                <p className="mt-4 max-w-[620px] font-sans text-[28px] leading-tight text-white">
+                  A place to ask questions, find collaborators, and stay close to the people pushing local developer culture forward.
                 </p>
               </div>
             </div>
@@ -236,7 +235,7 @@ export default function Home() {
                 key={testimonial.name}
                 className="rounded-[24px] border border-[#a7a7a7] bg-[rgba(255,255,255,0.04)] p-6"
               >
-                <p className="font-mono text-[18px] leading-8 text-white">
+                <p className="font-mono text-[16px] leading-7 text-white">
                   {testimonial.text}
                 </p>
                 <div className="mt-8 border-t border-white/10 pt-4">

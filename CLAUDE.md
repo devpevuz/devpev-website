@@ -8,22 +8,40 @@ DevPev is an open-source developer community platform based in Uzbekistan ("O'zb
 ## Tech Stack
 - **Framework:** Next.js 15 (App Router, Turbopack)
 - **UI:** React 19, TypeScript, Tailwind CSS v4
-- **Fonts:** Cutive Mono (`--font-cutive-mono`) + Cutive (`--font-cutive`) from next/font/google
+- **Fonts:** IBM Plex Mono (`--font-ibm-plex-mono`) + Cutive (`--font-cutive`) from next/font/google
+- **Content:** Markdown blog posts via `gray-matter` + `remark-html`
 - **Package manager:** npm
 
 ## Project Structure
 ```
 src/
   app/
-    layout.tsx        # Root layout — mounts Header globally
-    page.tsx          # Home page (currently "under construction")
-    globals.css       # Tailwind v4 import + global styles
-    speakers/
-      page.tsx        # Speaker signup form (Google Forms embed)
+    layout.tsx              # Root layout — Navbar, Footer, DotBackground, RouteBodyClass
+    page.tsx                # Home page — hero, stats, pathways, testimonials, CTAs
+    globals.css             # Tailwind v4 import + global styles + .prose-article
+    about/page.tsx          # About, contributors, contact, partnerships
+    blog/
+      page.tsx              # Blog listing (reads from src/articles/)
+      [slug]/page.tsx       # Dynamic SSG article renderer
+    events/page.tsx         # Events with tab switcher (upcoming / past)
+    jobs/page.tsx           # Jobs with tab switcher (positions / freelance)
+    speakers/page.tsx       # Speaker signup (Google Forms embed)
+    terminal/page.tsx       # Terminal/CLI mockup
   components/
-    Header.tsx        # Sticky glassmorphism navbar
+    Navbar.tsx              # Fixed header, hide-on-scroll, active route highlight
+    Footer.tsx              # Logo + tagline + link columns
+    DotBackground.tsx       # Canvas-based animated dot background
+    StatsBar.tsx            # Expandable stats/donate panels
+    RouteBodyClass.tsx      # Sets "reading-mode" class on /blog/[slug] routes
+  lib/
+    articles.ts             # getAllArticles() + getArticle(slug) — reads src/articles/
+    jobs.ts                 # Hardcoded positions[] + freelanceJobs[]
+  articles/                 # Markdown blog posts (YAML frontmatter)
 public/
-  devpev.svg          # Logo
+  devpev.svg                # Logo
+references/
+  Home.png                  # Design reference screenshot
+DESIGN.md                   # Visual design tokens & component patterns (source of truth)
 ```
 
 ## Design File
@@ -35,12 +53,15 @@ public/
 - Always use `get_design_context` (not just metadata) before implementing any Figma frame
 
 ## Design System
+See `DESIGN.md` for the full token reference. Key values:
+
 - **Background:** `#202020` (dark, near-black)
-- **Primary text:** white / `#ededed`
-- **Secondary text:** `text-gray-300`
-- **Accent:** indigo (`indigo-600`)
-- **Cards/surfaces:** `bg-white/10` with `backdrop-blur-xl`, `border border-white/20`, `rounded-2xl`
-- **Font:** Cutive Mono (`font-mono`) for body/labels/stats; Cutive (`font-sans`) for headings/display
+- **Foreground:** `#ededed`
+- **Accent:** `#914848` (brand / active nav), `#a85a5a` (hover)
+- **Glass surfaces:** `bg-[rgba(255,255,255,0.07)]` with `backdrop-blur-[2px]`
+- **Font-sans:** `Cutive` — headings, nav, display
+- **Font-mono:** `IBM Plex Mono` — body, labels, metadata, stats
+- **Max content width:** `1063px`
 - Nav items: Events, Blog, Terminal, Jobs, About | CTA: "Partner us"
 
 ## Code Conventions
@@ -53,17 +74,19 @@ public/
 - Use `next/image` for all images, `next/link` for all internal navigation
 - No inline styles except for one-off animations; prefer Tailwind utilities
 - TypeScript strict mode — no `any` types
+- Blog articles: Markdown files in `src/articles/` with YAML frontmatter (`title`, `date`, `author`, `github`, `tags`)
 
-## Route Plan (from Figma)
+## Route Status
 | Route | Status |
 |---|---|
-| `/` | Placeholder (needs full Home implementation) |
-| `/events` | Not built |
-| `/blog` | Not built |
-| `/terminal` | Not built |
-| `/jobs` | Not built |
-| `/about` | Not built |
-| `/speakers` | Built (Google Form embed) |
+| `/` | Built — hero, stats, pathways, testimonials, CTAs |
+| `/events` | Built — tab switcher (upcoming / past) with timeline |
+| `/blog` | Built — listing from `src/articles/` |
+| `/blog/[slug]` | Built — SSG dynamic article renderer |
+| `/terminal` | Built — CLI mockup with help text |
+| `/jobs` | Built — tab switcher (positions / freelance) |
+| `/about` | Built — contributors, contact, partnerships |
+| `/speakers` | Built — Google Form embed |
 
 ## Security Rules
 - Never expose API keys or secrets in client components — use `NEXT_PUBLIC_` prefix only for truly public values
