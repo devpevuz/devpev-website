@@ -97,7 +97,7 @@ export default function Home() {
               </div>
             </div>
 
-            <aside className="flex flex-col justify-between rounded-[24px] border border-[#e7e6e6] bg-[rgba(255,255,255,0.06)] p-6 sm:p-8">
+            <aside className="event-card-glow flex flex-col justify-between rounded-[24px] border border-[#e7e6e6] bg-[rgba(255,255,255,0.06)] p-6 sm:p-8">
               <div>
                 <p className="font-mono text-[12px] uppercase tracking-[0.2em] text-[#c9c9c9]">
                   next event

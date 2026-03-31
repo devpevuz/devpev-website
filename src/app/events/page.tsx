@@ -20,14 +20,44 @@ function EventCard({ event }: { event: Event }) {
       </div>
 
       {/* Event card */}
-      <div className="flex-1 bg-[rgba(255,255,255,0.07)] rounded-[20px] p-7 flex items-center justify-between gap-6">
-        <div className="flex flex-col gap-4">
-          <p className="font-mono text-[18px] text-white">{event.time}</p>
-          <p className="font-sans text-[24px] text-white">{event.title}</p>
-          <p className="font-mono text-[18px] text-white">{event.location}</p>
+      {event.url ? (
+        <a
+          href={event.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 bg-[rgba(255,255,255,0.07)] hover:bg-[rgba(255,255,255,0.11)] rounded-[20px] p-7 flex items-center justify-between gap-6 transition-colors"
+        >
+          <div className="flex flex-col gap-4">
+            <p className="font-mono text-[18px] text-white">{event.time}</p>
+            <p className="font-sans text-[24px] text-white">{event.title}</p>
+            <p className="font-mono text-[18px] text-white">{event.location}</p>
+          </div>
+          <div className="w-[150px] h-[150px] shrink-0 rounded-xl bg-[rgba(255,255,255,0.06)] border border-white/10 flex flex-col items-center justify-center gap-1">
+            <span className="text-[32px] leading-none">
+              {event.title.match(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/u)?.[0] ?? "📅"}
+            </span>
+            <span className="font-mono text-[20px] text-white text-center px-2 leading-tight">
+              {event.title.match(/#\d+/)?.[0] ?? "devpev"}
+            </span>
+          </div>
+        </a>
+      ) : (
+        <div className="flex-1 bg-[rgba(255,255,255,0.07)] rounded-[20px] p-7 flex items-center justify-between gap-6">
+          <div className="flex flex-col gap-4">
+            <p className="font-mono text-[18px] text-white">{event.time}</p>
+            <p className="font-sans text-[24px] text-white">{event.title}</p>
+            <p className="font-mono text-[18px] text-white">{event.location}</p>
+          </div>
+          <div className="w-[150px] h-[150px] shrink-0 rounded-xl bg-[rgba(255,255,255,0.06)] border border-white/10 flex flex-col items-center justify-center gap-1">
+            <span className="text-[32px] leading-none">
+              {event.title.match(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/u)?.[0] ?? "📅"}
+            </span>
+            <span className="font-mono text-[20px] text-white text-center px-2 leading-tight">
+              {event.title.match(/#\d+/)?.[0] ?? "devpev"}
+            </span>
+          </div>
         </div>
-        <div className="w-[150px] h-[150px] shrink-0 rounded-xl bg-[#d9d9d9]" />
-      </div>
+      )}
     </div>
   );
 }
