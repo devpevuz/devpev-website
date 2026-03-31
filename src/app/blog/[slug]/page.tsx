@@ -26,7 +26,7 @@ export default async function ArticlePage({
             ← back to blog
           </Link>
 
-          <div className="mt-8 rounded-[28px]  px-6 py-7 sm:px-8 sm:py-8">
+          <div className="mt-8 rounded-[28px] px-6 py-7 sm:px-8 sm:py-8">
             <div className="flex flex-wrap gap-x-4 gap-y-1 mb-3">
               <span className="font-mono text-[12px] text-[#b8b8b8]">{article.date}</span>
               <span className="font-mono text-[12px] text-[#b8b8b8]">
