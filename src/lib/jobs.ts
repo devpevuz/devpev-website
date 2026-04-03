@@ -1,57 +1,38 @@
-export interface Job {
-  id: string;
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+
+const JOBS_DIR = path.join(process.cwd(), "jobs");
+
+export interface JobMeta {
+  slug: string;
   title: string;
   company: string;
   location: string;
   type: string;
   tags: string[];
   url?: string;
+  date: string;
 }
 
-export const positions: Job[] = [
-  {
-    id: "frontend-techcorp",
-    title: "Frontend Developer",
-    company: "TechCorp",
-    location: "Tashkent, Uzbekistan",
-    type: "Full-time",
-    tags: ["react", "typescript", "next.js"],
-    url: "https://techcorp.uz/jobs",
-  },
-  {
-    id: "backend-startupxyz",
-    title: "Backend Developer",
-    company: "StartupXYZ",
-    location: "Remote",
-    type: "Full-time",
-    tags: ["node.js", "postgresql"],
-    url: "https://startupxyz.com/jobs",
-  },
-  {
-    id: "devops-enterprise",
-    title: "DevOps Engineer",
-    company: "Enterprise Inc",
-    location: "Tashkent, Uzbekistan",
-    type: "Part-time",
-    tags: ["docker", "kubernetes", "aws"],
-  },
-];
+export function getAllJobs(): JobMeta[] {
+  const files = fs.readdirSync(JOBS_DIR).filter((f) => f.endsWith(".md"));
 
-export const freelanceJobs: Job[] = [
-  {
-    id: "react-client",
-    title: "React Developer",
-    company: "Client Project",
-    location: "Remote",
-    type: "Freelance",
-    tags: ["react", "javascript"],
-  },
-  {
-    id: "ui-design-agency",
-    title: "UI Designer",
-    company: "Design Agency",
-    location: "Remote",
-    type: "Freelance",
-    tags: ["figma", "tailwind"],
-  },
-];
+  const jobs = files.map((filename) => {
+    const slug = filename.replace(/\.md$/, "");
+    const raw = fs.readFileSync(path.join(JOBS_DIR, filename), "utf8");
+    const { data } = matter(raw);
+    return {
+      slug,
+      title: data.title ?? slug,
+      company: data.company ?? "",
+      location: data.location ?? "",
+      type: data.type ?? "full-time",
+      tags: data.tags ?? [],
+      url: data.url,
+      date: data.date ?? "",
+    } satisfies JobMeta;
+  });
+
+  return jobs.sort((a, b) => (a.date < b.date ? 1 : -1));
+}

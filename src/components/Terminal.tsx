@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import type { ArticleMeta } from "@/lib/articles";
-import type { Job } from "@/lib/jobs";
 import type { Event } from "@/lib/events";
 
 // ---------------------------------------------------------------------------
@@ -19,8 +18,6 @@ type HistoryLine =
 
 export interface TerminalProps {
   articles: ArticleMeta[];
-  jobs: Job[];
-  freelanceJobs: Job[];
   upcomingEvents: Event[];
   pastEvents: Event[];
 }
@@ -196,40 +193,18 @@ function cmdBlogSlug(slug: string, articles: ArticleMeta[]): OutputRow[] {
   ];
 }
 
-function cmdJobs(jobs: Job[], freelanceJobs: Job[]): OutputRow[] {
-  const rows: OutputRow[] = [
-    makeRow(text("positions:", DIM)),
+function cmdJobs(): OutputRow[] {
+  return [
+    makeRow(text("jobs:", DIM)),
     makeRow(text("─".repeat(50), MUTED)),
+    makeRow(text("")),
+    makeRow(text("no open positions right now.", NORMAL)),
+    makeRow(text("")),
+    makeRow(text("we post jobs as the community grows.", DIM)),
+    makeRow(text("check back soon, or visit ", DIM), text("/jobs", GREEN), text(" for updates.", DIM)),
+    makeRow(text("")),
+    makeRow(text("want to post a job? ", DIM), text("open a PR", WHITE), text(" adding a .md file to src/jobs/", DIM)),
   ];
-  for (const job of jobs) {
-    rows.push(
-      makeRow(
-        text(job.title, WHITE),
-        text("  @ ", DIM),
-        text(job.company, ACCENT),
-        text("  " + job.location, DIM)
-      )
-    );
-    rows.push(
-      makeRow(
-        text("  " + job.type + "  ", MUTED),
-        text(job.tags.join("  "), MUTED)
-      )
-    );
-  }
-  rows.push(makeRow(text("")));
-  rows.push(makeRow(text("freelance:", DIM)));
-  rows.push(makeRow(text("─".repeat(50), MUTED)));
-  for (const job of freelanceJobs) {
-    rows.push(
-      makeRow(
-        text(job.title, WHITE),
-        text("  " + job.location, DIM)
-      )
-    );
-    rows.push(makeRow(text("  " + job.tags.join("  "), MUTED)));
-  }
-  return rows;
 }
 
 function cmdEvents(upcoming: Event[], past: Event[]): OutputRow[] {
@@ -335,8 +310,6 @@ const BOOT_LINES: HistoryLine[] = [
 
 export default function Terminal({
   articles,
-  jobs,
-  freelanceJobs,
   upcomingEvents,
   pastEvents,
 }: TerminalProps) {
@@ -537,7 +510,7 @@ export default function Terminal({
         if (args.length === 0) return pushOutput(cmdBlog(articles));
         return pushOutput(cmdBlogSlug(args[0], articles));
       }
-      if (lower === "jobs") return pushOutput(cmdJobs(jobs, freelanceJobs));
+      if (lower === "jobs") return pushOutput(cmdJobs());
       if (lower === "events")
         return pushOutput(cmdEvents(upcomingEvents, pastEvents));
 
@@ -545,8 +518,6 @@ export default function Terminal({
     },
     [
       articles,
-      jobs,
-      freelanceJobs,
       upcomingEvents,
       pastEvents,
       pushOutput,
