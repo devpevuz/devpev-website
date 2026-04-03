@@ -203,7 +203,7 @@ function cmdJobs(): OutputRow[] {
     makeRow(text("we post jobs as the community grows.", DIM)),
     makeRow(text("check back soon, or visit ", DIM), text("/jobs", GREEN), text(" for updates.", DIM)),
     makeRow(text("")),
-    makeRow(text("want to post a job? ", DIM), text("open a PR", WHITE), text(" adding a .md file to src/jobs/", DIM)),
+    makeRow(text("want to post a job? ", DIM), text("open a PR", WHITE), text(" adding a .md file to jobs/", DIM)),
   ];
 }
 
