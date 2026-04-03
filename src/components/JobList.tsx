@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { JobMeta } from "@/lib/jobs";
 
 const TABS = ["full-time", "freelance"] as const;
@@ -81,43 +82,31 @@ export default function JobList({ jobs }: { jobs: JobMeta[] }) {
       {/* Job list */}
       <div className="flex flex-col">
         {filtered.length > 0 ? (
-          filtered.map((job) => {
-            const row = (
-              <div className="py-4 border-b border-white/10 hover:bg-white/5 px-2 -mx-2 rounded-lg transition-colors">
-                <p className="font-sans text-[24px] text-white mb-1">
-                  {job.title}
-                </p>
-                <div className="flex flex-wrap items-center gap-x-6 gap-y-0.5">
-                  <span className="font-mono text-[13px] text-[#888]">
-                    {job.company}
-                  </span>
-                  <span className="font-mono text-[13px] text-[#888]">
-                    {job.location}
-                  </span>
-                  <span className="font-mono text-[13px] text-[#888]">
-                    {job.date}
-                  </span>
-                  <span className="font-mono text-[13px] text-[#666]">
-                    {job.tags.map((t) => `#${t}`).join(" ")}
-                  </span>
-                </div>
+          filtered.map((job) => (
+            <Link
+              key={job.slug}
+              href={`/jobs/${job.slug}`}
+              className="py-4 border-b border-white/10 hover:bg-white/5 px-2 -mx-2 rounded-lg transition-colors block"
+            >
+              <p className="font-sans text-[24px] text-white mb-1">
+                {job.title}
+              </p>
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-0.5">
+                <span className="font-mono text-[13px] text-[#888]">
+                  {job.company}
+                </span>
+                <span className="font-mono text-[13px] text-[#888]">
+                  {job.location}
+                </span>
+                <span className="font-mono text-[13px] text-[#888]">
+                  {job.date}
+                </span>
+                <span className="font-mono text-[13px] text-[#666]">
+                  {job.tags.map((t) => `#${t}`).join(" ")}
+                </span>
               </div>
-            );
-
-            return job.url ? (
-              <a
-                key={job.slug}
-                href={job.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block"
-              >
-                {row}
-              </a>
-            ) : (
-              <div key={job.slug}>{row}</div>
-            );
-          })
+            </Link>
+          ))
         ) : (
           <p className="font-mono text-[14px] text-[#666] py-4">
             {query
