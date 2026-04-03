@@ -1,7 +1,6 @@
 import StatsBar from "@/components/StatsBar";
 import Terminal from "@/components/Terminal";
 import { getAllArticles } from "@/lib/articles";
-import { positions, freelanceJobs } from "@/lib/jobs";
 import { upcomingEvents, pastEvents } from "@/lib/events";
 
 export default function TerminalPage() {
@@ -14,8 +13,6 @@ export default function TerminalPage() {
           <StatsBar />
           <Terminal
             articles={articles}
-            jobs={positions}
-            freelanceJobs={freelanceJobs}
             upcomingEvents={upcomingEvents}
             pastEvents={pastEvents}
           />

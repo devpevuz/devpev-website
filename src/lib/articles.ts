@@ -4,7 +4,7 @@ import matter from "gray-matter";
 import { remark } from "remark";
 import remarkHtml from "remark-html";
 
-const ARTICLES_DIR = path.join(process.cwd(), "src/articles");
+const ARTICLES_DIR = path.join(process.cwd(), "articles");
 
 export interface ArticleMeta {
   slug: string;

@@ -8,10 +8,10 @@ Thanks for wanting to contribute! This project is open source and we welcome pul
 
 ### 1. Create your file
 
-Add a new `.md` file inside `src/articles/`. Use lowercase words separated by hyphens — no spaces.
+Add a new `.md` file inside `articles/`. Use lowercase words separated by hyphens — no spaces.
 
 ```
-src/articles/your-article-title-here.md
+articles/your-article-title-here.md
 ```
 
 ### 2. Add the required frontmatter
@@ -59,8 +59,80 @@ More content...
 ### 4. Open a pull request
 
 - Fork the repo and create a branch: `article/your-article-slug`
-- Add your `.md` file to `src/articles/`
+- Add your `.md` file to `articles/`
 - Open a PR with a short description of what your article is about
+
+---
+
+## Posting a Job
+
+### 1. Create your file
+
+Add a new `.md` file inside `jobs/`. Use lowercase words separated by hyphens.
+
+```
+jobs/role-company-name.md
+```
+
+### 2. Add the required frontmatter
+
+```yaml
+---
+title: "Job Title"
+company: "Company Name"
+location: "City, Country or Remote"
+type: "full-time"
+tags: ["tag1", "tag2"]
+url: "https://your-application-link.com"
+date: "YYYY-MM-DD"
+---
+```
+
+| Field | Required | Notes |
+|---|---|---|
+| `title` | yes | Role title shown in the listing |
+| `company` | yes | Company or client name |
+| `location` | yes | e.g. `Tashkent, Uzbekistan` or `Remote` |
+| `type` | yes | `full-time` or `freelance` |
+| `tags` | yes | Tech stack, e.g. `["react", "typescript"]` |
+| `url` | no | Link to apply — omit if not available |
+| `date` | yes | Format: `YYYY-MM-DD`, used for sorting |
+
+### 3. Write the job description
+
+Add the full job details in Markdown below the frontmatter — responsibilities, requirements, what you offer, etc.
+
+```markdown
+---
+title: "Frontend Developer"
+company: "Acme Corp"
+location: "Tashkent, Uzbekistan"
+type: "full-time"
+tags: ["react", "typescript"]
+url: "https://acme.uz/jobs"
+date: "2026-04-01"
+---
+
+We are looking for a Frontend Developer to join our team.
+
+## Responsibilities
+
+- Build UI features with React and TypeScript
+- ...
+
+## Requirements
+
+- 2+ years of React experience
+- ...
+```
+
+### 4. Open a pull request
+
+- Fork the repo and create a branch: `job/role-company`
+- Add your `.md` file to `jobs/`
+- Open a PR with a short description of the role
+
+Jobs are reviewed by maintainers before merging. Please only post real, active positions.
 
 ---
 

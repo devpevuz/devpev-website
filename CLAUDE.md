@@ -21,7 +21,7 @@ src/
     globals.css             # Tailwind v4 import + global styles + .prose-article
     about/page.tsx          # About, contributors, contact, partnerships
     blog/
-      page.tsx              # Blog listing (reads from src/articles/)
+      page.tsx              # Blog listing (reads from articles/)
       [slug]/page.tsx       # Dynamic SSG article renderer
     events/page.tsx         # Events with tab switcher (upcoming / past)
     jobs/page.tsx           # Jobs with tab switcher (positions / freelance)
@@ -34,9 +34,10 @@ src/
     StatsBar.tsx            # Expandable stats/donate panels
     RouteBodyClass.tsx      # Sets "reading-mode" class on /blog/[slug] routes
   lib/
-    articles.ts             # getAllArticles() + getArticle(slug) — reads src/articles/
-    jobs.ts                 # Hardcoded positions[] + freelanceJobs[]
-  articles/                 # Markdown blog posts (YAML frontmatter)
+    articles.ts             # getAllArticles() + getArticle(slug) — reads articles/
+    jobs.ts                 # getAllJobs() — reads jobs/
+articles/                   # Markdown blog posts (YAML frontmatter)
+jobs/                       # Markdown job listings (YAML frontmatter)
 public/
   devpev.svg                # Logo
 references/
@@ -74,14 +75,15 @@ See `DESIGN.md` for the full token reference. Key values:
 - Use `next/image` for all images, `next/link` for all internal navigation
 - No inline styles except for one-off animations; prefer Tailwind utilities
 - TypeScript strict mode — no `any` types
-- Blog articles: Markdown files in `src/articles/` with YAML frontmatter (`title`, `date`, `author`, `github`, `tags`)
+- Blog articles: Markdown files in `articles/` with YAML frontmatter (`title`, `date`, `author`, `github`, `tags`)
+- Job listings: Markdown files in `jobs/` with YAML frontmatter (`title`, `company`, `location`, `type`, `tags`, `url`, `date`)
 
 ## Route Status
 | Route | Status |
 |---|---|
 | `/` | Built — hero, stats, pathways, testimonials, CTAs |
 | `/events` | Built — tab switcher (upcoming / past) with timeline |
-| `/blog` | Built — listing from `src/articles/` |
+| `/blog` | Built — listing from `articles/` |
 | `/blog/[slug]` | Built — SSG dynamic article renderer |
 | `/terminal` | Built — CLI mockup with help text |
 | `/jobs` | Built — tab switcher (positions / freelance) |
