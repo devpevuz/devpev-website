@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { JobMeta } from "@/lib/jobs";
+import { useLanguage } from "@/lib/language-context";
 
 const TABS = ["full-time", "freelance"] as const;
 type Tab = (typeof TABS)[number];
@@ -10,6 +11,7 @@ type Tab = (typeof TABS)[number];
 export default function JobList({ jobs }: { jobs: JobMeta[] }) {
   const [tab, setTab] = useState<Tab>("full-time");
   const [query, setQuery] = useState("");
+  const { t } = useLanguage();
 
   const byType = jobs.filter((j) => j.type === tab);
 
@@ -29,7 +31,7 @@ export default function JobList({ jobs }: { jobs: JobMeta[] }) {
     <>
       {/* Title + tab switcher on the same row */}
       <div className="flex items-start justify-between mb-6">
-        <h1 className="font-sans text-[48px] text-white">Jobs</h1>
+        <h1 className="font-sans text-[48px] text-white">{t.jobs.title}</h1>
         <div className="flex items-center border border-white rounded-[10px] shrink-0 mt-2">
           <button
             type="button"
@@ -40,7 +42,7 @@ export default function JobList({ jobs }: { jobs: JobMeta[] }) {
                 : "border border-transparent text-[#a7a7a7] hover:text-white"
             }`}
           >
-            Positions
+            {t.jobs.positions}
           </button>
           <button
             type="button"
@@ -51,7 +53,7 @@ export default function JobList({ jobs }: { jobs: JobMeta[] }) {
                 : "border border-transparent text-[#a7a7a7] hover:text-white"
             }`}
           >
-            Freelance
+            {t.jobs.freelance}
           </button>
         </div>
       </div>
@@ -72,7 +74,7 @@ export default function JobList({ jobs }: { jobs: JobMeta[] }) {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="search jobs..."
+          placeholder={t.jobs.searchPlaceholder}
           className="w-full bg-[rgba(255,255,255,0.05)] border border-white/10 rounded-[14px] pl-10 pr-4 py-3 font-mono text-[14px] text-[#c9c9c9] placeholder:text-[#666] outline-none focus:border-white/20 transition-colors"
           autoComplete="off"
           spellCheck={false}
@@ -110,8 +112,8 @@ export default function JobList({ jobs }: { jobs: JobMeta[] }) {
         ) : (
           <p className="font-mono text-[14px] text-[#666] py-4">
             {query
-              ? `no jobs found for "${query}"`
-              : `no ${tab} positions available right now.`}
+              ? t.jobs.noResults.replace("{query}", query)
+              : t.jobs.noPositions.replace("{tab}", tab)}
           </p>
         )}
       </div>

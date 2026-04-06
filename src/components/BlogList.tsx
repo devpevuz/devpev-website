@@ -3,9 +3,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { ArticleMeta } from "@/lib/articles";
+import { useLanguage } from "@/lib/language-context";
 
 export default function BlogList({ articles }: { articles: ArticleMeta[] }) {
   const [query, setQuery] = useState("");
+  const { t } = useLanguage();
 
   const filtered = query.trim()
     ? articles.filter((a) => {
@@ -36,7 +38,7 @@ export default function BlogList({ articles }: { articles: ArticleMeta[] }) {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="search articles..."
+          placeholder={t.blog.searchPlaceholder}
           className="w-full bg-[rgba(255,255,255,0.05)] border border-white/10 rounded-[14px] pl-10 pr-4 py-3 font-mono text-[14px] text-[#c9c9c9] placeholder:text-[#666] outline-none focus:border-white/20 transition-colors"
           autoComplete="off"
           spellCheck={false}
@@ -70,7 +72,7 @@ export default function BlogList({ articles }: { articles: ArticleMeta[] }) {
           ))
         ) : (
           <p className="font-mono text-[14px] text-[#666] py-4">
-            no articles found for &ldquo;{query}&rdquo;
+            {t.blog.noResults.replace("{query}", query)}
           </p>
         )}
       </div>

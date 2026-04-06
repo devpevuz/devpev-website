@@ -2,6 +2,10 @@
 
 Thanks for wanting to contribute! This project is open source and we welcome pull requests from the community.
 
+Things you can do:
+- write an article
+- post a job
+- juggest featurs/bug fixes/ touch the code.  
 ---
 
 ## Writing a Blog Article
