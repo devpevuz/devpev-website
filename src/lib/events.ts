@@ -5,9 +5,26 @@ export interface Event {
   title: string;
   location: string;
   url?: string;
+  description?: string;
+  topic?: string;
+  venue?: string;
 }
 
 export const upcomingEvents: Event[] = [
+  {
+    date: "18-Apr",
+    day: "Saturday",
+    time: "17:30 , 18-apr",
+    title: "DevPev Meetup #20 — OpenClaw🦞",
+    location: "School 21, Tashkent",
+    url: "https://lu.ma/nw1z1aam",
+    description: "Open source tooling, live demos, and community showcase.",
+    topic: "OpenClaw, open-source, community projects",
+    venue: "Ziyolar ko'chasi 13, Tashkent",
+  },
+];
+
+export const pastEvents: Event[] = [
   {
     date: "4-Apr",
     day: "Saturday",
@@ -16,17 +33,6 @@ export const upcomingEvents: Event[] = [
     location: "School 21, Tashkent",
     url: "https://lu.ma/sv5jryj3",
   },
-  {
-    date: "18-Apr",
-    day: "Saturday",
-    time: "17:30 , 18-apr",
-    title: "DevPev Meetup #20 — OpenClaw🦞",
-    location: "School 21, Tashkent",
-    url: "https://lu.ma/nw1z1aam",
-  },
-];
-
-export const pastEvents: Event[] = [
   {
     date: "7-Mar",
     day: "Saturday",

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLanguage } from "@/lib/language-context";
 
 interface StatItem {
   key: string;
@@ -26,6 +27,7 @@ const supportLinks = [
 
 export default function StatsBar({ stats = defaultStats }: StatsBarProps) {
   const [openPanel, setOpenPanel] = useState<"stats" | "donate" | null>(null);
+  const { t } = useLanguage();
 
   const togglePanel = (panel: "stats" | "donate") => {
     setOpenPanel((current) => (current === panel ? null : panel));
@@ -42,7 +44,7 @@ export default function StatsBar({ stats = defaultStats }: StatsBarProps) {
             openPanel === "stats" ? "border-b border-white" : "border-b border-transparent"
           }`}
         >
-          show stats
+          {t.stats.showStats}
         </button>
         <button
           type="button"
@@ -52,7 +54,7 @@ export default function StatsBar({ stats = defaultStats }: StatsBarProps) {
             openPanel === "donate" ? "border-b border-white" : "border-b border-transparent"
           }`}
         >
-          donate$
+          {t.stats.donate}
         </button>
       </div>
 
@@ -69,7 +71,7 @@ export default function StatsBar({ stats = defaultStats }: StatsBarProps) {
       {openPanel === "donate" && (
         <div className="mt-3 rounded-[14px] border border-white/15 bg-[rgba(255,255,255,0.05)] px-4 py-3">
           <p className="font-mono text-[12px] text-white">
-            support address: @devpevuz
+            {t.stats.supportAddress}
           </p>
           <div className="mt-2 flex flex-wrap gap-x-4 gap-y-2">
             {supportLinks.map((link) => (

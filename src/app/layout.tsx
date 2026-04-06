@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DotBackground from "@/components/DotBackground";
 import RouteBodyClass from "@/components/RouteBodyClass";
+import { LanguageProvider } from "@/lib/language-context";
 
 const ibmPlexMono = IBM_Plex_Mono({
   weight: ["400", "500"],
@@ -31,11 +32,13 @@ export default function RootLayout({
   return (
     <html lang="uz">
       <body className={`${ibmPlexMono.variable} ${cutive.variable} antialiased`}>
-        <RouteBodyClass />
-        <DotBackground />
-        <Navbar />
-        <main className="pt-[90px] sm:pt-[130px]">{children}</main>
-        <Footer />
+        <LanguageProvider>
+          <RouteBodyClass />
+          <DotBackground />
+          <Navbar />
+          <main className="pt-[90px] sm:pt-[130px]">{children}</main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

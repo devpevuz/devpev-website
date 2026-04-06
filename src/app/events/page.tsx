@@ -3,6 +3,7 @@
 import { useState } from "react";
 import StatsBar from "@/components/StatsBar";
 import { type Event, upcomingEvents, pastEvents } from "@/lib/events";
+import { useLanguage } from "@/lib/language-context";
 
 function EventCard({ event }: { event: Event }) {
   return (
@@ -65,6 +66,7 @@ function EventCard({ event }: { event: Event }) {
 export default function EventsPage() {
   const [tab, setTab] = useState<"upcoming" | "past">("upcoming");
   const events = tab === "upcoming" ? upcomingEvents : pastEvents;
+  const { t } = useLanguage();
 
   return (
     <div className="min-h-screen text-white">
@@ -73,10 +75,9 @@ export default function EventsPage() {
           <div className="flex items-center justify-between mb-8">
             <div>
               <StatsBar />
-              <h1 className="font-sans text-[48px] text-white">Events</h1>
+              <h1 className="font-sans text-[48px] text-white">{t.events.title}</h1>
             </div>
 
-            {/* Tab switcher */}
             <div className="flex items-center border border-white rounded-[10px] shrink-0">
               <button
                 type="button"
@@ -87,7 +88,7 @@ export default function EventsPage() {
                     : "border border-transparent text-[#a7a7a7] hover:text-white"
                 }`}
               >
-                Upcoming
+                {t.events.upcoming}
               </button>
               <button
                 type="button"
@@ -98,7 +99,7 @@ export default function EventsPage() {
                     : "border border-transparent text-[#a7a7a7] hover:text-white"
                 }`}
               >
-                Past
+                {t.events.past}
               </button>
             </div>
           </div>

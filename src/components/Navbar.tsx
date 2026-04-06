@@ -4,20 +4,23 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-
-const navLinks = [
-  { href: "/events", label: "Events" },
-  { href: "/blog", label: "Blog" },
-  { href: "/terminal", label: "Terminal" },
-  { href: "/jobs", label: "Jobs" },
-  { href: "/about", label: "About" },
-];
+import { useLanguage } from "@/lib/language-context";
+// import LangSwitcher from "./LangSwitcher";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [visible, setVisible] = useState(true);
   const lastScrollY = useRef(0);
+  const { t } = useLanguage();
+
+  const navLinks = [
+    { href: "/events", label: t.nav.events },
+    { href: "/blog", label: t.nav.blog },
+    { href: "/terminal", label: t.nav.terminal },
+    { href: "/jobs", label: t.nav.jobs },
+    { href: "/about", label: t.nav.about },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -81,12 +84,15 @@ export default function Navbar() {
               ))}
             </nav>
 
-            <Link
-              href="/about#partner"
-              className="hidden md:block shrink-0 rounded-[18px] px-4 py-3 text-center font-sans text-[21px] leading-none text-[#c9c9c9] hover:text-white transition-colors whitespace-nowrap"
-            >
-              Partner us
-            </Link>
+            <div className="hidden md:flex items-center gap-4 shrink-0">
+              {/* <LangSwitcher /> */}
+              <Link
+                href="/about#partner"
+                className="rounded-[18px] px-4 py-3 text-center font-sans text-[21px] leading-none text-[#c9c9c9] hover:text-white transition-colors whitespace-nowrap"
+              >
+                {t.nav.partner}
+              </Link>
+            </div>
 
             <button
               type="button"
@@ -96,7 +102,7 @@ export default function Navbar() {
               aria-controls="mobile-nav"
               aria-label="Toggle menu"
             >
-              menu
+              {t.nav.menu}
             </button>
           </div>
 
@@ -124,7 +130,7 @@ export default function Navbar() {
                 onClick={() => setIsMenuOpen(false)}
                 className="mt-2 px-3 py-3 rounded-[14px] font-sans text-[17px] text-[#c9c9c9] hover:text-white hover:bg-white/5 transition-colors"
               >
-                Partner us
+                {t.nav.partner}
               </Link>
             </div>
           )}
