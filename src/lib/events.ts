@@ -12,6 +12,20 @@ export interface Event {
 
 export const upcomingEvents: Event[] = [
   {
+    date: "16-May",
+    day: "Friday",
+    time: "18:00 , 16-may",
+    title: "DevPev meetup #21 — Road to Microsoft",
+    location: "Ferghana polytechnic institute, Farg'ona",
+    url: "https://lu.ma/yft87oj6",
+    description: "Qudratxo'ja Musayev (Microsoft) shares his journey, career growth, and advice on networking and interviews.",
+    topic: "Microsoft, career, international companies",
+    venue: "Ferghana polytechnic institute, Farg'ona",
+  },
+];
+
+export const pastEvents: Event[] = [
+  {
     date: "18-Apr",
     day: "Saturday",
     time: "17:30 , 18-apr",
@@ -22,9 +36,6 @@ export const upcomingEvents: Event[] = [
     topic: "OpenClaw, open-source, community projects",
     venue: "Ziyolar ko'chasi 13, Tashkent",
   },
-];
-
-export const pastEvents: Event[] = [
   {
     date: "4-Apr",
     day: "Saturday",
