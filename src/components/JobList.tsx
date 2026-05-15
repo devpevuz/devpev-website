@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import type { JobMeta } from "@/lib/jobs";
 import { useLanguage } from "@/lib/language-context";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const TABS = ["full-time", "freelance"] as const;
 type Tab = (typeof TABS)[number];
@@ -22,95 +24,70 @@ export default function JobList({ jobs }: { jobs: JobMeta[] }) {
           j.title.toLowerCase().includes(q) ||
           j.company.toLowerCase().includes(q) ||
           j.location.toLowerCase().includes(q) ||
-          j.tags.some((t) => t.toLowerCase().includes(q))
+          j.tags.some((tag) => tag.toLowerCase().includes(q))
         );
       })
     : byType;
 
   return (
     <>
-      {/* Title + tab switcher on the same row */}
-      <div className="flex items-start justify-between mb-6">
-        <h1 className="font-sans text-[48px] text-white">{t.jobs.title}</h1>
-        <div className="flex items-center border border-white rounded-[10px] shrink-0 mt-2">
-          <button
-            type="button"
+      <div className="flex items-start justify-between mb-4">
+        <h1 className="font-sans text-[40px] text-foreground">{t.jobs.title}</h1>
+        <div className="flex border border-border mt-2">
+          <Button
+            variant={tab === "full-time" ? "default" : "ghost"}
+            size="sm"
             onClick={() => setTab("full-time")}
-            className={`px-5 py-3 font-sans text-[24px] transition-colors rounded-[9px] ${
-              tab === "full-time"
-                ? "border border-white text-white"
-                : "border border-transparent text-[#a7a7a7] hover:text-white"
-            }`}
+            className="font-sans text-[13px] border-r border-border"
           >
             {t.jobs.positions}
-          </button>
-          <button
-            type="button"
+          </Button>
+          <Button
+            variant={tab === "freelance" ? "default" : "ghost"}
+            size="sm"
             onClick={() => setTab("freelance")}
-            className={`px-5 py-3 font-sans text-[24px] transition-colors rounded-[9px] ${
-              tab === "freelance"
-                ? "border border-white text-white"
-                : "border border-transparent text-[#a7a7a7] hover:text-white"
-            }`}
+            className="font-sans text-[13px]"
           >
             {t.jobs.freelance}
-          </button>
+          </Button>
         </div>
       </div>
 
-      {/* Search on its own row */}
-      <div className="relative mb-8">
-        <svg
-          className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#666]"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={2}
-          viewBox="0 0 24 24"
-        >
-          <circle cx="11" cy="11" r="8" />
-          <path d="m21 21-4.35-4.35" />
-        </svg>
-        <input
+      <div className="mb-6">
+        <Input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={t.jobs.searchPlaceholder}
-          className="w-full bg-[rgba(255,255,255,0.05)] border border-white/10 rounded-[14px] pl-10 pr-4 py-3 font-mono text-[14px] text-[#c9c9c9] placeholder:text-[#666] outline-none focus:border-white/20 transition-colors"
+          className="h-9 w-full font-mono text-[13px]"
           autoComplete="off"
           spellCheck={false}
         />
       </div>
 
-      {/* Job list */}
-      <div className="flex flex-col">
+      <div className="flex flex-col border-t border-border">
         {filtered.length > 0 ? (
           filtered.map((job) => (
             <Link
               key={job.slug}
               href={`/jobs/${job.slug}`}
-              className="py-4 border-b border-white/10 hover:bg-white/5 px-2 -mx-2 rounded-lg transition-colors block"
+              className="py-4 px-2 border-b border-border hover:bg-muted transition-colors block"
             >
-              <p className="font-sans text-[24px] text-white mb-1">
+              <p className="font-sans text-[22px] text-foreground mb-1">
                 {job.title}
               </p>
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-0.5">
-                <span className="font-mono text-[13px] text-[#888]">
-                  {job.company}
-                </span>
-                <span className="font-mono text-[13px] text-[#888]">
-                  {job.location}
-                </span>
-                <span className="font-mono text-[13px] text-[#888]">
-                  {job.date}
-                </span>
-                <span className="font-mono text-[13px] text-[#666]">
-                  {job.tags.map((t) => `#${t}`).join(" ")}
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-0.5 mt-1">
+                <span className="font-mono text-[11px] text-muted-foreground">{job.company}</span>
+                <span className="font-mono text-[11px] text-muted-foreground">{job.location}</span>
+                <span className="font-mono text-[11px] text-muted-foreground">{job.date}</span>
+                <span className="font-mono text-[11px] text-muted-foreground/60">
+                  {job.tags.map((tag) => `#${tag}`).join(" ")}
                 </span>
               </div>
             </Link>
           ))
         ) : (
-          <p className="font-mono text-[14px] text-[#666] py-4">
+          <p className="font-mono text-[13px] text-muted-foreground py-4 px-2">
             {query
               ? t.jobs.noResults.replace("{query}", query)
               : t.jobs.noPositions.replace("{tab}", tab)}

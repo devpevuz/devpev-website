@@ -1,3 +1,5 @@
+export type EventType = "talk" | "workshop" | "study-group" | "gathering";
+
 export interface Event {
   date: string;
   day: string;
@@ -8,19 +10,19 @@ export interface Event {
   description?: string;
   topic?: string;
   venue?: string;
+  type?: EventType;
 }
 
 export const upcomingEvents: Event[] = [
   {
     date: "18-Apr",
     day: "Saturday",
-    time: "17:30 , 18-apr",
+    time: "17:30",
     title: "DevPev Meetup #20 — OpenClaw🦞",
-    location: "School 21, Tashkent",
+    location: "School 21, Ziyolar ko'chasi 13, Tashkent",
     url: "https://lu.ma/nw1z1aam",
     description: "Open source tooling, live demos, and community showcase.",
-    topic: "OpenClaw, open-source, community projects",
-    venue: "Ziyolar ko'chasi 13, Tashkent",
+    type: "talk",
   },
 ];
 

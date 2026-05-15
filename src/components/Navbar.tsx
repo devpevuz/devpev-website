@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "@/lib/language-context";
-// import LangSwitcher from "./LangSwitcher";
+import ThemeToggle from "./ThemeToggle";
+import { Button } from "@/components/ui/button";
+import StatsBar from "./StatsBar";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -26,26 +27,17 @@ export default function Navbar() {
     const handleScroll = () => {
       const currentY = window.scrollY;
       const delta = currentY - lastScrollY.current;
-
-      if (currentY < 12) {
-        setVisible(true);
-      } else if (delta > 6) {
-        setVisible(false);
-      } else if (delta < -6) {
-        setVisible(true);
-      }
-
+      if (currentY < 12) setVisible(true);
+      else if (delta > 6) setVisible(false);
+      else if (delta < -6) setVisible(true);
       lastScrollY.current = currentY;
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
-    if (isMenuOpen) {
-      setVisible(true);
-    }
+    if (isMenuOpen) setVisible(true);
   }, [isMenuOpen]);
 
   const isLinkActive = (href: string) =>
@@ -57,26 +49,25 @@ export default function Navbar() {
         visible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      <div className="px-2 sm:px-0 flex justify-center pt-2 sm:pt-[20px]">
-        <div className="w-full max-w-[1063px] backdrop-blur-[2px] bg-[rgba(255,255,255,0.07)] rounded-[20px] shadow-[0px_6px_8px_0px_rgba(0,0,0,0.15)] px-5 sm:px-7 py-3.5">
-          <div className="flex items-center justify-between min-h-[54px]">
+      <div className="flex justify-center px-3 pt-3">
+        <div className="w-full max-w-[1063px] border border-border bg-background/90 backdrop-blur-md">
+          <div className="flex items-center justify-between px-4 py-2.5 min-h-[52px]">
+            {/* Logo */}
             <Link href="/" className="shrink-0 hover:opacity-80 transition-opacity">
-              <Image
-                src="/devpev.svg"
-                alt="DevPev"
-                width={123}
-                height={49}
-                priority
-              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/devpev.svg" alt="DevPev" width={100} height={40} className="logo-svg" />
             </Link>
 
-            <nav className="hidden md:flex flex-1 items-center justify-center gap-2 px-4">
+            {/* Desktop nav */}
+            <nav className="hidden md:flex items-center gap-0">
               {navLinks.map(({ href, label }) => (
                 <Link
                   key={href}
                   href={href}
-                  className={`min-w-[88px] rounded-[18px] px-4 py-3 text-center font-sans text-[21px] leading-none text-[#c9c9c9] transition-colors whitespace-nowrap ${
-                    isLinkActive(href) ? "bg-[#914848]" : "hover:text-white"
+                  className={`px-3 py-2 font-sans text-[15px] leading-none transition-colors whitespace-nowrap border-r border-border last:border-r-0 ${
+                    isLinkActive(href)
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
                   }`}
                 >
                   {label}
@@ -84,42 +75,51 @@ export default function Navbar() {
               ))}
             </nav>
 
-            <div className="hidden md:flex items-center gap-4 shrink-0">
-              {/* <LangSwitcher /> */}
+            {/* Right side */}
+            <div className="hidden md:flex items-center gap-0 border-l border-border">
               <Link
                 href="/about#partner"
-                className="rounded-[18px] px-4 py-3 text-center font-sans text-[21px] leading-none text-[#c9c9c9] hover:text-white transition-colors whitespace-nowrap"
+                className="px-3 py-2 font-sans text-[15px] leading-none text-muted-foreground hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap border-r border-border"
               >
                 {t.nav.partner}
               </Link>
+              <div className="px-2 flex items-center">
+                <ThemeToggle />
+              </div>
             </div>
 
-            <button
-              type="button"
-              onClick={() => setIsMenuOpen((current) => !current)}
-              className="md:hidden font-sans text-[16px] text-[#c9c9c9] hover:text-white transition-colors"
-              aria-expanded={isMenuOpen}
-              aria-controls="mobile-nav"
-              aria-label="Toggle menu"
-            >
-              {t.nav.menu}
-            </button>
+            {/* Mobile */}
+            <div className="md:hidden flex items-center gap-2">
+              <ThemeToggle />
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsMenuOpen((c) => !c)}
+                aria-expanded={isMenuOpen}
+                aria-controls="mobile-nav"
+                aria-label="Toggle menu"
+                className="font-sans text-[14px]"
+              >
+                {t.nav.menu}
+              </Button>
+            </div>
           </div>
 
+          {/* Mobile menu */}
           {isMenuOpen && (
             <div
               id="mobile-nav"
-              className="md:hidden mt-4 border-t border-white/10 pt-4 flex flex-col gap-2"
+              className="md:hidden border-t border-border flex flex-col"
             >
               {navLinks.map(({ href, label }) => (
                 <Link
                   key={href}
                   href={href}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`px-3 py-3 rounded-[14px] font-sans text-[17px] transition-colors ${
+                  className={`px-4 py-3 font-sans text-[15px] border-b border-border last:border-b-0 transition-colors ${
                     isLinkActive(href)
-                      ? "bg-[#914848] text-white"
-                      : "text-[#c9c9c9] hover:text-white hover:bg-white/5"
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
                   }`}
                 >
                   {label}
@@ -128,12 +128,17 @@ export default function Navbar() {
               <Link
                 href="/about#partner"
                 onClick={() => setIsMenuOpen(false)}
-                className="mt-2 px-3 py-3 rounded-[14px] font-sans text-[17px] text-[#c9c9c9] hover:text-white hover:bg-white/5 transition-colors"
+                className="px-4 py-3 font-sans text-[15px] text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
               >
                 {t.nav.partner}
               </Link>
             </div>
           )}
+        </div>
+      </div>
+      <div className="flex justify-center px-3 pt-1">
+        <div className="w-full max-w-[1063px]">
+          <StatsBar />
         </div>
       </div>
     </header>

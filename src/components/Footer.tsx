@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useLanguage } from "@/lib/language-context";
 
 const socialLinks = [
@@ -65,58 +64,66 @@ export default function Footer() {
   const { t } = useLanguage();
 
   return (
-    <footer className="flex justify-center px-2 sm:px-0 pb-[83px] pt-6">
-      <div className="w-full max-w-[1063px] backdrop-blur-[2px] bg-[rgba(255,255,255,0.07)] rounded-[20px] shadow-[0px_6px_8px_0px_rgba(0,0,0,0.15)] px-8 py-10 flex flex-col sm:flex-row items-start justify-between gap-8">
-        <div className="flex flex-col gap-6">
-          <Link href="/" className="hover:opacity-80 transition-opacity">
-            <Image src="/devpev.svg" alt="DevPev" width={161} height={65} />
-          </Link>
-          <div className="flex gap-4">
-            {socialLinks.map((s) => (
-              <a
-                key={s.name}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={s.name}
-                className="text-white hover:opacity-70 transition-opacity"
-              >
-                {s.icon}
-              </a>
-            ))}
-          </div>
-          <p className="font-mono text-[24px] text-white">
-            {t.footer.tagline}
-          </p>
-        </div>
-
-        <div className="flex gap-16">
-          <div className="flex flex-col gap-5">
-            <span className="font-sans text-[20px] text-[#c9c9c9]">{t.footer.resources}</span>
-            <div className="flex flex-col gap-[10px]">
-              <Link href="/blog" className="font-mono text-[20px] text-[#999] hover:text-[#c9c9c9] transition-colors">
-                {t.footer.blog}
-              </Link>
-              <Link href="/terminal" className="font-mono text-[20px] text-[#999] hover:text-[#c9c9c9] transition-colors">
-                {t.footer.projects}
-              </Link>
+    <footer className="flex justify-center px-3 pb-8 pt-4">
+      <div className="w-full max-w-[1063px] border border-border bg-background">
+        {/* Top row */}
+        <div className="flex flex-col sm:flex-row items-start">
+          {/* Logo + tagline */}
+          <div className="flex flex-col gap-4 p-6 border-b sm:border-b-0 sm:border-r border-border w-full sm:w-auto sm:min-w-[260px]">
+            <Link href="/" className="hover:opacity-80 transition-opacity">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/devpev.svg" alt="DevPev" width={120} height={48} className="logo-svg" />
+            </Link>
+            <p className="font-mono text-xs text-muted-foreground">
+              {t.footer.tagline}
+            </p>
+            <div className="flex gap-3">
+              {socialLinks.map((s) => (
+                <a
+                  key={s.name}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.name}
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {s.icon}
+                </a>
+              ))}
             </div>
           </div>
 
-          <div className="flex flex-col gap-5">
-            <span className="font-sans text-[20px] text-[#c9c9c9]">{t.footer.about}</span>
-            <div className="flex flex-col gap-[10px]">
-              <Link href="/about" className="font-mono text-[20px] text-[#999] hover:text-[#c9c9c9] transition-colors">
+          {/* Link columns */}
+          <div className="flex flex-1 divide-x divide-border">
+            <div className="flex flex-col p-6 gap-2 flex-1">
+              <span className="font-sans text-xs text-muted-foreground uppercase tracking-widest mb-2">{t.footer.resources}</span>
+              <Link href="/blog" className="font-mono text-sm text-foreground hover:text-primary transition-colors">
+                {t.footer.blog}
+              </Link>
+              <Link href="/terminal" className="font-mono text-sm text-foreground hover:text-primary transition-colors">
+                {t.footer.projects}
+              </Link>
+            </div>
+
+            <div className="flex flex-col p-6 gap-2 flex-1">
+              <span className="font-sans text-xs text-muted-foreground uppercase tracking-widest mb-2">{t.footer.about}</span>
+              <Link href="/about" className="font-mono text-sm text-foreground hover:text-primary transition-colors">
                 {t.footer.aboutUs}
               </Link>
-              <Link href="/about#contributors" className="font-mono text-[20px] text-[#999] hover:text-[#c9c9c9] transition-colors">
+              <Link href="/about#contributors" className="font-mono text-sm text-foreground hover:text-primary transition-colors">
                 {t.footer.contributors}
               </Link>
-              <Link href="/about#contact" className="font-mono text-[20px] text-[#999] hover:text-[#c9c9c9] transition-colors">
+              <Link href="/about#contact" className="font-mono text-sm text-foreground hover:text-primary transition-colors">
                 {t.footer.contactUs}
               </Link>
             </div>
           </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="border-t border-border px-6 py-3 flex items-center justify-between">
+          <span className="font-mono text-xs text-muted-foreground">devpev © 2025</span>
+          <span className="font-mono text-xs text-muted-foreground">by developers for developers</span>
         </div>
       </div>
     </footer>

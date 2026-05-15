@@ -1,10 +1,10 @@
 export default function Speakers() {
   return (
-    <div className="min-h-screen text-white px-4 sm:px-0">
+    <div className="min-h-screen px-4 sm:px-0">
       <div className="max-w-[1063px] mx-auto">
         <div className="text-center mb-12 pt-8">
-          <h1 className="font-sans text-[48px] text-white mb-4">Become a Speaker</h1>
-          <p className="font-mono text-[18px] text-[#c9c9c9]">
+          <h1 className="font-sans text-[48px] text-foreground mb-4">Become a Speaker</h1>
+          <p className="font-mono text-[18px] text-muted-foreground">
             If you want to give a talk or share your ideas, please fill out this form
           </p>
         </div>
@@ -15,7 +15,7 @@ export default function Speakers() {
             href="https://forms.gle/dv5xdWwpSpYNN7Jc8"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block border border-white/30 rounded-[10px] font-mono text-[18px] text-white hover:bg-white/10 px-6 py-3 transition-colors"
+            className="inline-block border border-border rounded-xl font-mono text-[18px] text-foreground hover:bg-accent px-6 py-3 transition-colors"
           >
             Open Form in New Tab
           </a>

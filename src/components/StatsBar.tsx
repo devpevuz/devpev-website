@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useLanguage } from "@/lib/language-context";
+import { Button } from "@/components/ui/button";
 
 interface StatItem {
   key: string;
@@ -20,13 +21,18 @@ const defaultStats: StatItem[] = [
 ];
 
 const supportLinks = [
-  { href: "https://t.me/devpevuz", label: "telegram" },
-  { href: "https://x.com/devpevuz", label: "x / twitter" },
-  { href: "https://instagram.com/devpevuz", label: "instagram" },
+  { href: "https://tirikchilik.uz/devpev_uz", label: "tirikchilik" },
+];
+
+const cryptoChains = [
+  { chain: "usdt on eth / bnb", address: "0x1234567890abcdef1234567890abcdef12345678" },
+  { chain: "usdc on base", address: "0x1234567890abcdef1234567890abcdef12345678" },
+  { chain: "usdc on sol", address: "7EcDhSYGxXyscszYEp35KHN8vvw3svAuLKTzXwCFLtV" },
 ];
 
 export default function StatsBar({ stats = defaultStats }: StatsBarProps) {
   const [openPanel, setOpenPanel] = useState<"stats" | "donate" | null>(null);
+  const [showCrypto, setShowCrypto] = useState(false);
   const { t } = useLanguage();
 
   const togglePanel = (panel: "stats" | "donate") => {
@@ -34,58 +40,63 @@ export default function StatsBar({ stats = defaultStats }: StatsBarProps) {
   };
 
   return (
-    <div className="pt-1 pb-2 sm:pt-1 sm:pb-3">
-      <div className="flex flex-wrap gap-x-6 gap-y-2">
-        <button
-          type="button"
+    <div>
+      <div className="flex border border-border w-fit">
+        <Button
+          variant={openPanel === "stats" ? "default" : "ghost"}
+          size="xs"
           onClick={() => togglePanel("stats")}
           aria-expanded={openPanel === "stats"}
-          className={`font-mono text-[12px] text-white pb-0.5 transition-opacity hover:opacity-70 ${
-            openPanel === "stats" ? "border-b border-white" : "border-b border-transparent"
-          }`}
+          className="font-mono text-[11px] border-r border-border"
         >
           {t.stats.showStats}
-        </button>
-        <button
-          type="button"
+        </Button>
+        <Button
+          variant={openPanel === "donate" ? "default" : "ghost"}
+          size="xs"
           onClick={() => togglePanel("donate")}
           aria-expanded={openPanel === "donate"}
-          className={`font-mono text-[12px] text-white pb-0.5 transition-opacity hover:opacity-70 ${
-            openPanel === "donate" ? "border-b border-white" : "border-b border-transparent"
-          }`}
+          className="font-mono text-[11px]"
         >
           {t.stats.donate}
-        </button>
+        </Button>
       </div>
 
       {openPanel === "stats" && (
-        <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 rounded-[14px] border border-white/15 bg-[rgba(255,255,255,0.05)] px-4 py-3">
+        <div className="mt-0 border border-t-0 border-border bg-muted flex flex-wrap gap-x-6 gap-y-1 px-3 py-2">
           {stats.map((stat) => (
-            <span key={stat.key} className="font-mono text-[12px] text-white">
-              {stat.key}: {stat.value}
+            <span key={stat.key} className="font-mono text-[11px] text-foreground">
+              <span className="text-muted-foreground">{stat.key}:</span> {stat.value}
             </span>
           ))}
         </div>
       )}
 
       {openPanel === "donate" && (
-        <div className="mt-3 rounded-[14px] border border-white/15 bg-[rgba(255,255,255,0.05)] px-4 py-3">
-          <p className="font-mono text-[12px] text-white">
-            {t.stats.supportAddress}
-          </p>
-          <div className="mt-2 flex flex-wrap gap-x-4 gap-y-2">
-            {supportLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-mono text-[12px] text-[#c9c9c9] hover:text-white transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
+        <div className="mt-0 border border-t-0 border-border bg-muted px-3 py-2 flex flex-wrap items-baseline gap-x-6 gap-y-1">
+          {supportLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-[11px] text-foreground hover:text-primary transition-colors inline-flex items-baseline gap-0.5"
+            >
+              {link.label}<span className="text-[13px] leading-none">↗</span>
+            </a>
+          ))}
+          <button
+            onClick={() => setShowCrypto((c) => !c)}
+            className="font-mono text-[11px] text-foreground hover:text-primary transition-colors"
+          >
+            crypto {showCrypto ? "▴" : "▾"}
+          </button>
+          {showCrypto && cryptoChains.map(({ chain, address }) => (
+            <span key={chain} className="font-mono text-[11px] text-foreground inline-flex items-baseline gap-1">
+              <span className="text-muted-foreground">{chain}:</span>
+              <span>{address.slice(0, 6)}…{address.slice(-4)}</span>
+            </span>
+          ))}
         </div>
       )}
     </div>
