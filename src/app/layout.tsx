@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, Cutive, JetBrains_Mono } from "next/font/google";
+import { IBM_Plex_Mono, Cutive } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DotBackground from "@/components/DotBackground";
 import RouteBodyClass from "@/components/RouteBodyClass";
 import { LanguageProvider } from "@/lib/language-context";
-import { cn } from "@/lib/utils";
-
-const jetbrainsMono = JetBrains_Mono({subsets:['latin'],variable:'--font-mono'});
 
 const ibmPlexMono = IBM_Plex_Mono({
   weight: ["400", "500"],
@@ -33,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="uz" className={cn("font-mono", jetbrainsMono.variable)} suppressHydrationWarning>
+    <html lang="uz" className="font-mono" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{

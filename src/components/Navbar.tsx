@@ -11,16 +11,21 @@ import StatsBar from "./StatsBar";
 export default function Navbar() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(false);
   const [visible, setVisible] = useState(true);
   const lastScrollY = useRef(0);
+  const resourcesRef = useRef<HTMLDivElement>(null);
   const { t } = useLanguage();
 
   const navLinks = [
     { href: "/events", label: t.nav.events },
     { href: "/blog", label: t.nav.blog },
+    { href: "/projects", label: t.nav.projects },
+  ];
+
+  const resourceLinks = [
     { href: "/terminal", label: t.nav.terminal },
     { href: "/jobs", label: t.nav.jobs },
-    { href: "/about", label: t.nav.about },
   ];
 
   useEffect(() => {
@@ -40,8 +45,20 @@ export default function Navbar() {
     if (isMenuOpen) setVisible(true);
   }, [isMenuOpen]);
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (resourcesRef.current && !resourcesRef.current.contains(e.target as Node)) {
+        setResourcesOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const isLinkActive = (href: string) =>
     pathname === href || pathname.startsWith(href + "/");
+
+  const isResourcesActive = resourceLinks.some(({ href }) => isLinkActive(href));
 
   return (
     <header
@@ -73,15 +90,52 @@ export default function Navbar() {
                   {label}
                 </Link>
               ))}
+
             </nav>
 
             {/* Right side */}
             <div className="hidden md:flex items-center gap-0 border-l border-border">
+              {/* Resources dropdown */}
+              <div ref={resourcesRef} className="relative border-r border-border">
+                <button
+                  onClick={() => setResourcesOpen((o) => !o)}
+                  className={`px-3 py-2 font-sans text-[15px] leading-none transition-colors whitespace-nowrap flex items-center gap-1 ${
+                    isResourcesActive || resourcesOpen
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+                >
+                  {t.nav.resources}
+                  <span className="text-[10px] opacity-60">{resourcesOpen ? "▴" : "▾"}</span>
+                </button>
+                {resourcesOpen && (
+                  <div className="absolute top-full right-0 min-w-[140px] border border-t-0 border-border bg-background z-50">
+                    {resourceLinks.map(({ href, label }) => (
+                      <Link
+                        key={href}
+                        href={href}
+                        onClick={() => setResourcesOpen(false)}
+                        className={`block px-3 py-2 font-sans text-[14px] border-b border-border last:border-b-0 transition-colors whitespace-nowrap ${
+                          isLinkActive(href)
+                            ? "bg-primary text-primary-foreground"
+                            : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                        }`}
+                      >
+                        {label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
               <Link
-                href="/about#partner"
-                className="px-3 py-2 font-sans text-[15px] leading-none text-muted-foreground hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap border-r border-border"
+                href="/about"
+                className={`px-3 py-2 font-sans text-[15px] leading-none transition-colors whitespace-nowrap border-r border-border ${
+                  isLinkActive("/about")
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                }`}
               >
-                {t.nav.partner}
+                {t.nav.about}
               </Link>
               <div className="px-2 flex items-center">
                 <ThemeToggle />
@@ -107,16 +161,30 @@ export default function Navbar() {
 
           {/* Mobile menu */}
           {isMenuOpen && (
-            <div
-              id="mobile-nav"
-              className="md:hidden border-t border-border flex flex-col"
-            >
+            <div id="mobile-nav" className="md:hidden border-t border-border flex flex-col">
               {navLinks.map(({ href, label }) => (
                 <Link
                   key={href}
                   href={href}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`px-4 py-3 font-sans text-[15px] border-b border-border last:border-b-0 transition-colors ${
+                  className={`px-4 py-3 font-sans text-[15px] border-b border-border transition-colors ${
+                    isLinkActive(href)
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+                >
+                  {label}
+                </Link>
+              ))}
+              <div className="px-4 py-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground border-b border-border">
+                {t.nav.resources}
+              </div>
+              {resourceLinks.map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={`px-6 py-3 font-sans text-[15px] border-b border-border transition-colors ${
                     isLinkActive(href)
                       ? "bg-primary text-primary-foreground"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted"
@@ -126,11 +194,15 @@ export default function Navbar() {
                 </Link>
               ))}
               <Link
-                href="/about#partner"
+                href="/about"
                 onClick={() => setIsMenuOpen(false)}
-                className="px-4 py-3 font-sans text-[15px] text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                className={`px-4 py-3 font-sans text-[15px] transition-colors ${
+                  isLinkActive("/about")
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                }`}
               >
-                {t.nav.partner}
+                {t.nav.about}
               </Link>
             </div>
           )}

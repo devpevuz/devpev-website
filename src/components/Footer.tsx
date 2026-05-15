@@ -96,12 +96,25 @@ export default function Footer() {
           {/* Link columns */}
           <div className="flex flex-1 divide-x divide-border">
             <div className="flex flex-col p-6 gap-2 flex-1">
-              <span className="font-sans text-xs text-muted-foreground uppercase tracking-widest mb-2">{t.footer.resources}</span>
+              <span className="font-sans text-xs text-muted-foreground uppercase tracking-widest mb-2">{t.footer.community}</span>
+              <Link href="/events" className="font-mono text-sm text-foreground hover:text-primary transition-colors">
+                {t.footer.events}
+              </Link>
               <Link href="/blog" className="font-mono text-sm text-foreground hover:text-primary transition-colors">
                 {t.footer.blog}
               </Link>
-              <Link href="/terminal" className="font-mono text-sm text-foreground hover:text-primary transition-colors">
+              <Link href="/projects" className="font-mono text-sm text-foreground hover:text-primary transition-colors">
                 {t.footer.projects}
+              </Link>
+            </div>
+
+            <div className="flex flex-col p-6 gap-2 flex-1">
+              <span className="font-sans text-xs text-muted-foreground uppercase tracking-widest mb-2">{t.footer.resources}</span>
+              <Link href="/terminal" className="font-mono text-sm text-foreground hover:text-primary transition-colors">
+                {t.footer.terminal}
+              </Link>
+              <Link href="/jobs" className="font-mono text-sm text-foreground hover:text-primary transition-colors">
+                {t.footer.jobs}
               </Link>
             </div>
 

@@ -41,13 +41,13 @@ export default function StatsBar({ stats = defaultStats }: StatsBarProps) {
 
   return (
     <div>
-      <div className="flex border border-border w-fit">
+      <div className="flex w-fit">
         <Button
           variant={openPanel === "stats" ? "default" : "ghost"}
           size="xs"
           onClick={() => togglePanel("stats")}
           aria-expanded={openPanel === "stats"}
-          className="font-mono text-[11px] border-r border-border"
+          className="font-mono text-[11px] border border-border border-r-0"
         >
           {t.stats.showStats}
         </Button>
@@ -56,7 +56,7 @@ export default function StatsBar({ stats = defaultStats }: StatsBarProps) {
           size="xs"
           onClick={() => togglePanel("donate")}
           aria-expanded={openPanel === "donate"}
-          className="font-mono text-[11px]"
+          className="font-mono text-[11px] border border-border"
         >
           {t.stats.donate}
         </Button>

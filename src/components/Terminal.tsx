@@ -26,14 +26,14 @@ export interface TerminalProps {
 // Constants
 // ---------------------------------------------------------------------------
 
-const GREEN = "#28c840";
-const DIM = "#999999";
-const MUTED = "#666666";
-const NORMAL = "#c9c9c9";
-const WHITE = "#ffffff";
-const RED = "#ff5f57";
-const ACCENT = "#914848";
-const YELLOW = "#febc2e";
+const GREEN = "var(--term-green)";
+const DIM = "var(--term-dim)";
+const MUTED = "var(--term-muted)";
+const NORMAL = "var(--term-normal)";
+const WHITE = "var(--term-white)";
+const RED = "var(--term-red)";
+const ACCENT = "var(--term-accent)";
+const YELLOW = "var(--term-yellow)";
 
 
 const NEOFETCH_LOGO = [
@@ -578,18 +578,21 @@ export default function Terminal({
 
   return (
     <div
-      className={`relative border border-[#e7e6e6] rounded-[20px] overflow-hidden cursor-text${isHacking ? " terminal-hacking" : ""}`}
+      className={`relative border border-border overflow-hidden cursor-text bg-[#1a1a1a] dark:bg-[#1a1a1a]${isHacking ? " terminal-hacking" : ""}`}
       onClick={() => inputRef.current?.focus()}
     >
       {/* Title bar */}
-      <div className="bg-[rgba(255,255,255,0.07)] border-b border-[#e7e6e6] px-6 py-2 flex items-center justify-between">
-        <div className="flex gap-2">
-          <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-          <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
-          <div className="w-3 h-3 rounded-full bg-[#28c840]" />
+      <div className="border-b border-border px-5 py-2.5 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">devpev</span>
+          <span className="font-mono text-[10px] text-muted-foreground/40">—</span>
+          <span className="font-mono text-[10px] text-muted-foreground/40">terminal v1.0.0</span>
         </div>
-        <span className="font-mono text-[13px] text-[#c9c9c9]">devpev</span>
-        <div className="w-16" />
+        <div className="flex gap-px">
+          <div className="w-2 h-2 bg-[#ff5f57]" />
+          <div className="w-2 h-2 bg-[#febc2e]" />
+          <div className="w-2 h-2 bg-[#28c840]" />
+        </div>
       </div>
 
       {/* Terminal body */}
