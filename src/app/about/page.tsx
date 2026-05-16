@@ -168,7 +168,7 @@ export default function AboutPage() {
                 >
                   View sponsorship details →
                 </Link>
-                 <p className="font-mono text-[13px] text-muted-foreground leading-relaxed mb-6 pt-4 mb-0">
+                 <p className="font-mono text-[13px] text-muted-foreground leading-relaxed pt-4 mb-0">
                   Reach out directly to the organizer:
                 </p>
                 <a
