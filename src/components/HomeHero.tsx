@@ -1,10 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import type { Event } from "@/lib/events";
 import type { ArticleMeta } from "@/lib/articles";
 import { useLanguage } from "@/lib/language-context";
 import { buttonVariants } from "@/components/ui/button";
+
+const TYPE_SPEED = 80;
+const DELETE_SPEED = 50;
+const PAUSE_AFTER_TYPE = 5000;
+const PAUSE_AFTER_DELETE = 200;
 
 interface HomeHeroProps {
   nextEvent: Event | null;
@@ -13,6 +19,49 @@ interface HomeHeroProps {
 
 export default function HomeHero({ nextEvent, latestArticle }: HomeHeroProps) {
   const { t } = useLanguage();
+  const [displayed, setDisplayed] = useState<string>(t.home.heroWords[0]);
+  const [wordIndex, setWordIndex] = useState(0);
+  const [phase, setPhase] = useState<"typing" | "pausing" | "deleting">("pausing");
+
+  useEffect(() => {
+    setWordIndex(0);
+    setDisplayed(t.home.heroWords[0]);
+    setPhase("pausing");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [t.home.heroWords]);
+
+  useEffect(() => {
+    const target = t.home.heroWords[wordIndex];
+
+    if (phase === "typing") {
+      if (displayed.length < target.length) {
+        const t = setTimeout(() => setDisplayed(target.slice(0, displayed.length + 1)), TYPE_SPEED);
+        return () => clearTimeout(t);
+      } else {
+        const t = setTimeout(() => setPhase("deleting"), PAUSE_AFTER_TYPE);
+        return () => clearTimeout(t);
+      }
+    }
+
+    if (phase === "deleting") {
+      if (displayed.length > 0) {
+        const t = setTimeout(() => setDisplayed(displayed.slice(0, -1)), DELETE_SPEED);
+        return () => clearTimeout(t);
+      } else {
+        const words = t.home.heroWords;
+        const timer = setTimeout(() => {
+          setWordIndex((i) => (i + 1) % words.length);
+          setPhase("typing");
+        }, PAUSE_AFTER_DELETE);
+        return () => clearTimeout(timer);
+      }
+    }
+
+    if (phase === "pausing") {
+      const t = setTimeout(() => setPhase("deleting"), PAUSE_AFTER_TYPE);
+      return () => clearTimeout(t);
+    }
+  }, [displayed, wordIndex, phase]);
 
   return (
     <div className="min-h-screen">
@@ -23,7 +72,11 @@ export default function HomeHero({ nextEvent, latestArticle }: HomeHeroProps) {
             <div className="flex items-center border-b lg:border-b-0 lg:border-r border-border p-8 sm:p-10">
               <div className="w-full py-30">
                 <h1 className="max-w-[680px] font-sans text-[40px] leading-[1.02] text-foreground sm:text-[56px] lg:text-[68px]">
-                  {t.home.heroHeading}
+                  <span className="text-primary inline-block">
+                    {displayed}
+                    <span className="animate-pulse">_</span>
+                  </span>
+                  {" " + t.home.heroSuffix}
                 </h1>
                 <p className="mt-4 max-w-[420px] font-mono text-[12px] leading-6 text-muted-foreground sm:text-[13px]">
                   {t.home.heroSubtitle}

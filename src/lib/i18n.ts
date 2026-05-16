@@ -36,6 +36,8 @@ export const translations = {
     // Home page
     home: {
       heroHeading: "Build with your friends.",
+      heroWords: ["Build", "Learn", "Share", "Explore", "Vibe"],
+      heroSuffix: "with your friends.",
       heroSubtitle:
         "Meet developers in Uzbekistan, learn in public, and build useful things together.",
       joinCta: "Join the community",
@@ -119,6 +121,8 @@ export const translations = {
     },
     home: {
       heroHeading: "Do'stlar bilan birga quramiz.",
+      heroWords: ["Qur", "O'rgan", "Ulash", "Kashf et", "Enjoy"],
+      heroSuffix: "do'stlar bilan.",
       heroSubtitle:
         "O'zbekistondagi dasturchilar bilan tanishing, ochiq o'rganing va birgalikda foydali narsalar yarating.",
       joinCta: "Hamjamiyatga qo'shiling",

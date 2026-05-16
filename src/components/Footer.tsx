@@ -129,6 +129,9 @@ export default function Footer() {
               <Link href="/about#contact" className="font-mono text-xs sm:text-sm text-foreground hover:text-primary transition-colors">
                 {t.footer.contactUs}
               </Link>
+              <Link href="/sponsorship" className="font-mono text-xs sm:text-sm text-foreground hover:text-primary transition-colors">
+                Sponsorship
+              </Link>
             </div>
           </div>
         </div>
