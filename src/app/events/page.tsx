@@ -6,14 +6,32 @@ import { useLanguage } from "@/lib/language-context";
 import { Button } from "@/components/ui/button";
 
 function EventCard({ event }: { event: Event }) {
+  const emoji = event.title.match(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/u)?.[0] ?? "📅";
+  const tag = event.title.match(/#\d+/)?.[0] ?? "devpev";
+
+  const cardContent = (
+    <>
+      <div className="flex flex-col gap-2 flex-1 min-w-0">
+        <p className="font-mono text-[12px] text-muted-foreground">{event.date} · {event.day}</p>
+        <p className="font-mono text-[12px] text-muted-foreground">{event.time}</p>
+        <p className="font-sans text-[18px] sm:text-[22px] text-foreground leading-tight">{event.title}</p>
+        <p className="font-mono text-[12px] text-muted-foreground">{event.location}</p>
+      </div>
+      <div className="hidden sm:flex w-[100px] h-[100px] shrink-0 bg-muted border border-border flex-col items-center justify-center gap-1">
+        <span className="text-[28px] leading-none">{emoji}</span>
+        <span className="font-mono text-[13px] text-foreground text-center px-2 leading-tight">{tag}</span>
+      </div>
+    </>
+  );
+
   return (
-    <div className="flex items-start gap-6 py-6">
-      <div className="w-[151px] shrink-0 text-center pt-2">
-        <p className="font-sans text-[24px] text-muted-foreground">{event.date}</p>
-        <p className="font-sans text-[18px] text-muted-foreground">{event.day}</p>
+    <div className="flex items-start gap-3 sm:gap-6 py-4 sm:py-6">
+      <div className="hidden sm:block w-[130px] shrink-0 text-center pt-2">
+        <p className="font-sans text-[22px] text-muted-foreground">{event.date}</p>
+        <p className="font-sans text-[16px] text-muted-foreground">{event.day}</p>
       </div>
 
-      <div className="flex flex-col items-center shrink-0 pt-3">
+      <div className="hidden sm:flex flex-col items-center shrink-0 pt-3">
         <div className="w-[8px] h-[8px] bg-primary" />
         <div className="w-px flex-1 bg-border mt-1" />
       </div>
@@ -23,37 +41,13 @@ function EventCard({ event }: { event: Event }) {
           href={event.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 bg-card hover:bg-muted border border-border p-6 flex items-center justify-between gap-6 transition-colors"
+          className="flex-1 bg-card hover:bg-muted border border-border p-4 sm:p-6 flex items-center justify-between gap-4 sm:gap-6 transition-colors"
         >
-          <div className="flex flex-col gap-3">
-            <p className="font-mono text-[13px] text-muted-foreground">{event.time}</p>
-            <p className="font-sans text-[22px] text-foreground">{event.title}</p>
-            <p className="font-mono text-[13px] text-muted-foreground">{event.location}</p>
-          </div>
-          <div className="w-[100px] h-[100px] shrink-0 bg-muted border border-border flex flex-col items-center justify-center gap-1">
-            <span className="text-[28px] leading-none">
-              {event.title.match(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/u)?.[0] ?? "📅"}
-            </span>
-            <span className="font-mono text-[13px] text-foreground text-center px-2 leading-tight">
-              {event.title.match(/#\d+/)?.[0] ?? "devpev"}
-            </span>
-          </div>
+          {cardContent}
         </a>
       ) : (
-        <div className="flex-1 bg-card border border-border p-6 flex items-center justify-between gap-6">
-          <div className="flex flex-col gap-3">
-            <p className="font-mono text-[13px] text-muted-foreground">{event.time}</p>
-            <p className="font-sans text-[22px] text-foreground">{event.title}</p>
-            <p className="font-mono text-[13px] text-muted-foreground">{event.location}</p>
-          </div>
-          <div className="w-[100px] h-[100px] shrink-0 bg-muted border border-border flex flex-col items-center justify-center gap-1">
-            <span className="text-[28px] leading-none">
-              {event.title.match(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/u)?.[0] ?? "📅"}
-            </span>
-            <span className="font-mono text-[13px] text-foreground text-center px-2 leading-tight">
-              {event.title.match(/#\d+/)?.[0] ?? "devpev"}
-            </span>
-          </div>
+        <div className="flex-1 bg-card border border-border p-4 sm:p-6 flex items-center justify-between gap-4 sm:gap-6">
+          {cardContent}
         </div>
       )}
     </div>
@@ -71,7 +65,7 @@ export default function EventsPage() {
         <div className="w-full max-w-[1063px]">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h1 className="font-sans text-[48px] text-foreground">{t.events.title}</h1>
+              <h1 className="font-sans text-[28px] sm:text-[48px] text-foreground">{t.events.title}</h1>
             </div>
 
             <div className="flex border border-border shrink-0">

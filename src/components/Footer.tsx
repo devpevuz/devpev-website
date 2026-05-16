@@ -69,7 +69,7 @@ export default function Footer() {
         {/* Top row */}
         <div className="flex flex-col sm:flex-row items-start">
           {/* Logo + tagline */}
-          <div className="flex flex-col gap-4 p-6 border-b sm:border-b-0 sm:border-r border-border w-full sm:w-auto sm:min-w-[260px]">
+          <div className="flex flex-col gap-3 p-4 sm:p-6 border-b sm:border-b-0 sm:border-r border-border w-full sm:w-auto sm:min-w-[240px]">
             <Link href="/" className="hover:opacity-80 transition-opacity">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/devpev.svg" alt="DevPev" width={120} height={48} className="logo-svg" />
@@ -94,39 +94,39 @@ export default function Footer() {
           </div>
 
           {/* Link columns */}
-          <div className="flex flex-1 divide-x divide-border">
-            <div className="flex flex-col p-6 gap-2 flex-1">
+          <div className="grid grid-cols-3 sm:flex sm:flex-1 sm:divide-x divide-border border-t sm:border-t-0 border-border w-full">
+            <div className="flex flex-col p-4 sm:p-6 gap-2 sm:flex-1">
               <span className="font-sans text-xs text-muted-foreground uppercase tracking-widest mb-2">{t.footer.community}</span>
-              <Link href="/events" className="font-mono text-sm text-foreground hover:text-primary transition-colors">
+              <Link href="/events" className="font-mono text-xs sm:text-sm text-foreground hover:text-primary transition-colors">
                 {t.footer.events}
               </Link>
-              <Link href="/blog" className="font-mono text-sm text-foreground hover:text-primary transition-colors">
+              <Link href="/blog" className="font-mono text-xs sm:text-sm text-foreground hover:text-primary transition-colors">
                 {t.footer.blog}
               </Link>
-              <Link href="/projects" className="font-mono text-sm text-foreground hover:text-primary transition-colors">
+              <Link href="/projects" className="font-mono text-xs sm:text-sm text-foreground hover:text-primary transition-colors">
                 {t.footer.projects}
               </Link>
             </div>
 
-            <div className="flex flex-col p-6 gap-2 flex-1">
+            <div className="flex flex-col p-4 sm:p-6 gap-2 sm:flex-1 border-x sm:border-x-0 border-border">
               <span className="font-sans text-xs text-muted-foreground uppercase tracking-widest mb-2">{t.footer.resources}</span>
-              <Link href="/terminal" className="font-mono text-sm text-foreground hover:text-primary transition-colors">
+              <Link href="/terminal" className="font-mono text-xs sm:text-sm text-foreground hover:text-primary transition-colors">
                 {t.footer.terminal}
               </Link>
-              <Link href="/jobs" className="font-mono text-sm text-foreground hover:text-primary transition-colors">
+              <Link href="/jobs" className="font-mono text-xs sm:text-sm text-foreground hover:text-primary transition-colors">
                 {t.footer.jobs}
               </Link>
             </div>
 
-            <div className="flex flex-col p-6 gap-2 flex-1">
+            <div className="flex flex-col p-4 sm:p-6 gap-2 sm:flex-1">
               <span className="font-sans text-xs text-muted-foreground uppercase tracking-widest mb-2">{t.footer.about}</span>
-              <Link href="/about" className="font-mono text-sm text-foreground hover:text-primary transition-colors">
+              <Link href="/about" className="font-mono text-xs sm:text-sm text-foreground hover:text-primary transition-colors">
                 {t.footer.aboutUs}
               </Link>
-              <Link href="/about#contributors" className="font-mono text-sm text-foreground hover:text-primary transition-colors">
+              <Link href="/about#contributors" className="font-mono text-xs sm:text-sm text-foreground hover:text-primary transition-colors">
                 {t.footer.contributors}
               </Link>
-              <Link href="/about#contact" className="font-mono text-sm text-foreground hover:text-primary transition-colors">
+              <Link href="/about#contact" className="font-mono text-xs sm:text-sm text-foreground hover:text-primary transition-colors">
                 {t.footer.contactUs}
               </Link>
             </div>
