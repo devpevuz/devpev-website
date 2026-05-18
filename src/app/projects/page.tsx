@@ -9,7 +9,7 @@ const projects = [
     description: "The community website you're looking at. Built with Next.js, open to contributions.",
     tags: ["nextjs", "typescript", "tailwind"],
     status: "active",
-    url: "https://github.com/devpev/devpev-website",
+    url: "https://github.com/devpevuz/devpev-website",
   },
 ];
 
@@ -26,12 +26,12 @@ export default function ProjectsPage() {
               <h1 className="mt-2 font-sans text-[48px] sm:text-[56px] leading-tight text-foreground">Projects</h1>
             </div>
             <a
-              href="https://github.com/devpev"
+              href="https://github.com/devpevuz"
               target="_blank"
               rel="noopener noreferrer"
               className={buttonVariants({ variant: "outline", size: "sm" })}
             >
-              github.com/devpev ↗
+              github.com/devpevuz ↗
             </a>
           </div>
 
@@ -90,7 +90,7 @@ export default function ProjectsPage() {
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
               <a
-                href="https://github.com/devpev"
+                href="https://github.com/devpevuz"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={buttonVariants({ size: "lg" })}
